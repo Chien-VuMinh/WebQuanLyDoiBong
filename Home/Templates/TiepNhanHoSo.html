@@ -1,6 +1,7 @@
 {% load static %}
 
 
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -49,7 +50,6 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
               <span class="navbar-toggler-icon"></span>
             </button>
-            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
@@ -67,8 +67,8 @@
                     Chức Năng
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="" >Truy Xuất Cầu Thủ</a></li>
-                    <li><a class="dropdown-item" href="{% url 'TiepNhanHoSo' %}">Tiếp Nhận Hồ Sơ</a></li>
+                    <li><a class="dropdown-item" href="{% url 'TruyXuatCauThu' %}" >Truy Xuất Cầu Thủ</a></li>
+                    <li><a class="dropdown-item" href="">Tiếp Nhận Hồ Sơ</a></li>
                     <li><a class="dropdown-item" href="#">Chuc Nang 3</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Thay Đổi Tính Năng</a></li>
@@ -82,77 +82,65 @@
                     Liên Hệ
                   </a>
                 </li>
-              </ul>
-
-
-              <!-- search -->
-              <form action="" class="d-flex" role="search" method="POST">
-                {%  csrf_token %}
-                <input class="form-control me-2" type="search" name="Search" placeholder="Nhập tên cầu thủ" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">
-                  Tìm kiếm
-                </button>
-              </form>
-            
-
-             
+              </ul>                 
             </div>
           </div>
         </nav>
 
 
+
         <!-- Main Body -->
-        <div class="row" style = "width = 100%">  
-            <center>
-                {% if searched%}
-                  <h1>
-                    TÌM CẦU THỦ: "{{searched}}" 
-                  </h1>
+        <div class="row" style = "width = 100%">  <center>
 
-                {% else %}
-                <h1> 
-                  VUI LÒNG NHẬP TÊN CẦU THỦ CẦN TÌM
-                </h1>
-                {% endif %}
+            <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                <h1 class="lg:text-3xl text-xl font-semibold  mb-6"> TẠO HỒ SƠ MỚI </h1>
 
-            </center>
-            <div class="col-lg-12">
-                <div class="box-element">
-                    <br>                  
-                        <tr>                            
-                            <th><h5 style="text-align:center;"><strong>
-                              THÔNG TIN CẦU THỦ
-                            </strong></h5></th>
-                           
-                        </tr>
-                    <br>        
-                </div>
-        
-                <br>
-                <div class="box-element">
-                    <div class="cart-row">
-                        <div style="flex:1"><strong>MÃ CẦU THỦ</strong> </div>
-                        <div style="flex:1"><strong>TÊN CẦU THỦ</strong></div>
-                        <div style="flex:1"><strong>NGÀY SINH</strong></div>
-                        <div style="flex:1"><strong>VỊ TRÍ</strong></div>
-                        <div style="flex:1"><strong>GHI CHÚ</strong></div>
-                    </div>
-                  {% if searched%}  
-                    {% for cau_thu in danh_sach_cau_thu%}
-                      <div class="cart-row">
-                        <div style="flex:1"><p>{{cau_thu.ma_cau_thu}}</p></div>
-                        <div style="flex:1"><p>{{cau_thu.ten_cau_thu}}</p></div>
-                        <div style="flex:1"><p>{{cau_thu.ngay_sinh}}</p></div>
-                        <div style="flex:1"><p>{{cau_thu.loai_cau_thu}}</p></div>
-                        <div style="flex:1"><p>{{cau_thu.ghi_chu}}</p></div>
-                      </div>
+
+                <div>
+                    <style>
+                        h5{
+                            color: red;
+                        }
+                    </style>
+                    {% for message in messages %}
+                      <h5>{{message}}</h5>
                     {% endfor %}
-                  {% endif %}
-        
                 </div>
-            </div>
-        </div>
+                
+                <form  action="" method = "POST">
+                  {% csrf_token %}
+                  <div class="col-lg-6">
+                      <div class="box-element" id="form-wrapper">
+                            <div class="form-field">
+                                <input required class="form-control" type="text" name="madoi" placeholder="Mã đội">
+                            </div>
+                            
+                            <div class="form-field">
+                                <input required class="form-control" type="text" name="tendoi" placeholder="Tên đội">
+                            </div>
+
+                            <div class="form-field">
+                                <input required class="form-control" type="number" name="soluong" placeholder="Số lượng cầu thủ">
+                            </div>
+
+                            <div class="form-field">
+                                <input required class="form-control" type="number" name="ngoaiquoc" placeholder="Số cầu thủ ngoại quốc">
+                            </div>
+
         
+                            <hr>
+                            <input id="form-button" class="btn btn-success btn-block" type="submit" value="Tiếp tục">
+                      </div>   
+                  </div>
+                </form>
+        
+
+
+            </div>
+
+        </center>
+        </div>
+    
 
 
         <!-- Footer -->
@@ -161,10 +149,5 @@
         </footer>
 
 
-        <script src="" async defer></script>
     </body>
 </html>
-
-
-
-
