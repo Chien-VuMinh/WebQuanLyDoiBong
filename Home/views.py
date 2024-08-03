@@ -3,11 +3,16 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from .models import *
-from datetime import datetime
+from datetime import datetime, date
 
 
-SO_LUONG_CAU_THU            = [0, 22]
-SO_LUONG_CAU_THU_NGOAI_QUOC = [0, 3]
+
+f = open("regulation.txt", "r")
+lines = f.readlines()
+AGE                         = list(map(int, lines[0].split()))
+SO_LUONG_CAU_THU            = list(map(int, lines[1].split()))
+SO_LUONG_CAU_THU_NGOAI_QUOC = list(map(int, lines[2].split()))
+f.close()
 
 DOI = None
 NGOAIBINH  = NOIBINH = 0
@@ -76,6 +81,10 @@ def TiepNhanHoSo(request):
     
 
 
+def YearDiff(d):
+    current_day = date.today()
+    return int(abs(current_day - d).days / (365))
+
 
 def DangKiCauThu(request):
     global NOIBINH, NGOAIBINH, COUNTNOIBINH, COUNTNGOAIBINH, DOI
@@ -83,7 +92,7 @@ def DangKiCauThu(request):
     if request.method == "POST":
         macauthu    = request.POST['macauthu']
         tencauthu    = request.POST['tencauthu']  
-        ngaysinh    = request.POST['ngaysinh']
+        ngaysinh    = datetime.strptime(request.POST['ngaysinh'], '%Y-%m-%d').date()
         vitri    = request.POST['vitri']  
         ghichu    = "Ngoại binh"
 
@@ -94,6 +103,12 @@ def DangKiCauThu(request):
 
         elif CauThu.objects.filter(ma_cau_thu = macauthu).exists():
             messages.info(request, 'Mã cầu thủ đã tồn tại')
+            return render(request, 'DangKiCauThu.html')
+        
+        elif not (AGE[0] <= YearDiff(ngaysinh) <= AGE[1]):
+            print(YearDiff(ngaysinh))
+            messages.info(request, f"""Ngày sinh cần phải nằm trong khoảng 
+                                       [{AGE[0]}, {AGE[1]}]""")
             return render(request, 'DangKiCauThu.html')
         
         else:
@@ -115,10 +130,10 @@ def DangKiCauThu(request):
 
             else:
                 messages.info(request, 'Đăng ký thành công')   
-                CauThu.objects.create(ma_cau_thu = macauthu, ten_cau_thu = tencauthu, ngay_sinh = datetime.strptime(ngaysinh, '%Y-%m-%d').date(), loai_cau_thu = vitri, ghi_chu = ghichu, doi = DOI)
+                CauThu.objects.create(ma_cau_thu = macauthu, ten_cau_thu = tencauthu, ngay_sinh = ngaysinh, loai_cau_thu = vitri, ghi_chu = ghichu, doi = DOI)
                 return render(request, 'ThongBao.html', {'messages' : [DOI.ten_doi_bong], 'danh_sach_cau_thu' : CauThu.objects.filter(doi = DOI)})
             
-            CauThu.objects.create(ma_cau_thu = macauthu, ten_cau_thu = tencauthu, ngay_sinh = datetime.strptime(ngaysinh, '%Y-%m-%d').date(), loai_cau_thu = vitri, ghi_chu = ghichu, doi = DOI)
+            CauThu.objects.create(ma_cau_thu = macauthu, ten_cau_thu = tencauthu, ngay_sinh = ngaysinh, loai_cau_thu = vitri, ghi_chu = ghichu, doi = DOI)
         
 
         return render(request, 'DangKiCauThu.html') 
@@ -130,3 +145,38 @@ def DangKiCauThu(request):
 
 def ThongBao(request):
     return render(request, 'ThongBao.html')
+
+
+def ThayDoiQuyDinh(request):
+    global SO_LUONG_CAU_THU_NGOAI_QUOC, SO_LUONG_CAU_THU, AGE
+
+    if request.method == "POST":
+        QuyDinh = request.POST['QuyDinh']
+
+        if QuyDinh == 'tuoi':
+            return render(request, 'ThayDoiQuyDinh.html', {'tuoi' : ['tuoi'], 'messages' : ['Nhập độ tuổi mới']})
+        elif QuyDinh == 'thaydoituoi':
+            AGE = [int(request.POST['tuoitoithieu']), int(request.POST['tuoitoida'])]
+            return render(request, 'ThayDoiQuyDinh.html')
+        
+        elif QuyDinh == 'soluong':
+            return render(request, 'ThayDoiQuyDinh.html', {'soluong' : ['soluong'], 'messages' : ['Nhập số lượng cầu thủ mới']})
+        elif QuyDinh == 'thaydoisl':
+            SO_LUONG_CAU_THU = [int(request.POST['sltoithieu']), int(request.POST['sltoida'])]
+            return render(request, 'ThayDoiQuyDinh.html')
+        
+        elif QuyDinh == 'ngoaiquoc':
+            return render(request, 'ThayDoiQuyDinh.html', {'ngoaiquoc' : ['ngoaiquoc'], 'messages' : ['Nhập số lượng cầu thủ ngoại quốc mới']})
+        elif QuyDinh == 'thaydoingoaiquoc':
+            SO_LUONG_CAU_THU_NGOAI_QUOC = int(request.POST['ngoaiquoc'])
+            return render(request, 'ThayDoiQuyDinh.html')
+        
+        elif QuyDinh == 'luu':
+            f = open("regulation.txt", "w")
+            f.write(str(AGE[0]) + ' ' + str(AGE[1]) + '\n')
+            f.write(str(SO_LUONG_CAU_THU[0]) + ' ' + str(SO_LUONG_CAU_THU[1]) + '\n')
+            f.write(str(SO_LUONG_CAU_THU_NGOAI_QUOC[0]) + ' ' + str(SO_LUONG_CAU_THU_NGOAI_QUOC[1]))
+            f.close()
+            return render(request, 'Home.html')
+
+    return render(request, 'ThayDoiQuyDinh.html')

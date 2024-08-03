@@ -32,7 +32,7 @@ class CauThu(models.Model):
     
 
     def __str__(self):
-        return f"{self.ma_cau_thu} : {self.ten_cau_thu} : {self.doi.ten_doi_bong}"
+        return f"{self.ma_cau_thu} : {self.ten_cau_thu} : {self.doi}"
     # dat ten cho bang
     class Meta:
         verbose_name_plural = 'Cầu Thủ'
