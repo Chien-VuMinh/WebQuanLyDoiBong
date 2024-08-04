@@ -28,7 +28,7 @@
         <script src="{%static 'app/js/owl.carousel.min.js' %}" /> </script>
 
         
-        <title> Quan Ly Doi Bong </title>
+        <title> Quản Lý Giải Bóng Đá </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
@@ -49,39 +49,38 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
               <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <!-- Home tag -->
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >Home</a>
-                </li>
-
-
-                <!-- Link tag -->
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >
+                    Trang Chủ
+                  </a>
                 </li>
             
 
                 <!-- Chuc Nang tag -->
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Chuc Nang
+                  <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Chức Năng
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="" >Truy Xuat Cau Thu</a></li>
-                    <li><a class="dropdown-item" href="#">Chuc Nang 2</a></li>
+                    <li><a class="dropdown-item" href="" >Truy Xuất Cầu Thủ</a></li>
+                    <li><a class="dropdown-item" href="{% url 'TiepNhanHoSo' %}">Tiếp Nhận Hồ Sơ</a></li>
                     <li><a class="dropdown-item" href="#">Chuc Nang 3</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Thay doi tinh nang</a></li>
+                    <li><a class="dropdown-item" href="{% url 'ThayDoiQuyDinh' %}">Thay Đổi Quy Định</a></li>
                   </ul>
                 </li>
 
 
                 <!-- About us tag -->
                 <li class="nav-item">
-                  <a class="nav-link" href="#">About us</a>
+                  <a class="nav-link active" href="https://www.facebook.com/chien.vuminh.75/">
+                    Liên Hệ
+                  </a>
                 </li>
               </ul>
 
@@ -89,8 +88,10 @@
               <!-- search -->
               <form action="" class="d-flex" role="search" method="POST">
                 {%  csrf_token %}
-                <input class="form-control me-2" type="search" name="Search" placeholder="Nhap ten cau thu" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input class="form-control me-2" type="search" name="Search" placeholder="Nhập tên cầu thủ" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">
+                  Tìm kiếm
+                </button>
               </form>
             
 
@@ -104,18 +105,24 @@
         <div class="row" style = "width = 100%">  
             <center>
                 {% if searched%}
-                  <h1> Tim cau thu: "{{searched}}" </h1>
+                  <h1>
+                    TÌM CẦU THỦ: "{{searched}}" 
+                  </h1>
 
                 {% else %}
-                <h1> Vui long nhap ten cau thu can tim </h1>
-
+                <h1> 
+                  VUI LÒNG NHẬP TÊN CẦU THỦ CẦN TÌM
+                </h1>
                 {% endif %}
+
             </center>
             <div class="col-lg-12">
                 <div class="box-element">
                     <br>                  
                         <tr>                            
-                            <th><h5 style="text-align:center;"><strong> Thong Tin Cau Thu</strong></h5></th>
+                            <th><h5 style="text-align:center;"><strong>
+                              THÔNG TIN CẦU THỦ
+                            </strong></h5></th>
                            
                         </tr>
                     <br>        
@@ -124,11 +131,11 @@
                 <br>
                 <div class="box-element">
                     <div class="cart-row">
-                        <div style="flex:1"><strong>Id</strong> </div>
-                        <div style="flex:1"><strong>Ten</strong></div>
-                        <div style="flex:1"><strong>Ngay sinh</strong></div>
-                        <div style="flex:1"><strong>Vi Tri</strong></div>
-                        <div style="flex:1"><strong>Ghi Chu</strong></div>
+                        <div style="flex:1"><strong>MÃ CẦU THỦ</strong> </div>
+                        <div style="flex:1"><strong>TÊN CẦU THỦ</strong></div>
+                        <div style="flex:1"><strong>NGÀY SINH</strong></div>
+                        <div style="flex:1"><strong>VỊ TRÍ</strong></div>
+                        <div style="flex:1"><strong>GHI CHÚ</strong></div>
                     </div>
                   {% if searched%}  
                     {% for cau_thu in danh_sach_cau_thu%}
@@ -149,8 +156,8 @@
 
 
         <!-- Footer -->
-        <Footer class="container--fluid text-left fixed-bottom p-2 mt-5">
-            Vu Minh Chien 
+        <Footer class="container--fluid text-left fixed-bottom p-2 mt-5"> <strong>
+          Copyright ©  </strong>
         </footer>
 
 
