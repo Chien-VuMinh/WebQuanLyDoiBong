@@ -83,121 +83,128 @@
 
 
 
-
         <!-- Main Body -->
-        <div class="row" style = "width = 100%">  <center>
+        <img src="{% static 'app/images/rule_background.png' %}" class="d-block w-100" alt="Hinh 2" width="auto" height="640">
+        <div class="carousel-caption d-none d-md-block">
+          <center>
+          <div style="background-color: white; width: 500px; height: auto;"> 
+            <div class="row" style = "width = 100%">  
 
-            <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-                <br>
-                <h1 class="lg:text-3xl text-xl font-semibold  mb-6"> THAY ĐỔI QUY ĐỊNH </h1>
-                <br>
-
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <div>
-                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="tuoi">THAY ĐỔI TUỔI</button>
-                    </div>
-                    <br>
-                    <div>
-                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="soluong">THAY ĐỔI SỐ LƯỢNG CẦU THỦ</button>
-                    </div>
-                    <br>
-                    <div>
-                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="ngoaiquoc">THAY ĐỔI SỐ LƯỢNG CẦU THỦ NGOẠI QUỐC</button>
-                    </div>
-                    <br>
-                    <div>
-                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="luu">LƯU THAY ĐỔI</button>
-                    </div>
-                </form>
-                <br><br>
-
-                <div>
-                    <!-- thay doi tuoi -->
-                    {% if tuoi %}
-                        {% for message in messages %}
-                            <h5>{{message}}</h5>
-                        {% endfor %}
-                        <form  action="" method = "POST">
-                            {% csrf_token %}
-                            <div class="col-lg-6">
-                                <div class="box-element" id="form-wrapper">
-                                      <div class="form-field">
-                                          <input required class="form-control" type="number" name="tuoitoithieu" placeholder="Tuổi tối thiều">
-                                      </div>
-          
-                                      <div class="form-field">
-                                          <input required class="form-control" type="number" name="tuoitoida" placeholder="Tuổi tối đa">
-                                      </div>
-          
+              <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                  <br>
+                  <h1 class="lg:text-3xl text-xl font-semibold  mb-6"> THAY ĐỔI QUY ĐỊNH </h1>
+                  <br>
+  
+                  <form action="" method="POST">
+                      {% csrf_token %}
+                      <div>
+                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="tuoi">THAY ĐỔI TUỔI</button>
+                      </div>
+                      <br>
+                      <div>
+                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="soluong">THAY ĐỔI SỐ LƯỢNG CẦU THỦ</button>
+                      </div>
+                      <br>
+                      <div>
+                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="ngoaiquoc">THAY ĐỔI SỐ LƯỢNG CẦU THỦ NGOẠI QUỐC</button>
+                      </div>
+                      <br>
+                      <div>
+                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="luu">LƯU THAY ĐỔI</button>
+                      </div>
+                  </form>
+                  <br><br>
+  
+                  <div>
+                      <!-- thay doi tuoi -->
+                      {% if tuoi %}
+                          {% for message in messages %}
+                              <h5>{{message}}</h5>
+                          {% endfor %}
+                          <form  action="" method = "POST">
+                              {% csrf_token %}
+                              <div class="col-lg-6">
+                                  <div class="box-element" id="form-wrapper">
+                                        <div class="form-field">
+                                            <input required class="form-control" type="number" name="tuoitoithieu" placeholder="Tuổi tối thiều">
+                                        </div>
+            
+                                        <div class="form-field">
+                                            <input required class="form-control" type="number" name="tuoitoida" placeholder="Tuổi tối đa">
+                                        </div>
+            
+                    
+                                        <hr>
+                                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoituoi">THAY ĐỔI</button>
+                                  </div>   
+                              </div>
+                            </form>
+                      {% endif %}
+  
+  
+                      <!-- thay doi so luong -->
+                      {% if soluong %}
+                          {% for message in messages %}
+                              <h5>{{message}}</h5>
+                          {% endfor %}
+                          <form  action="" method = "POST">
+                              {% csrf_token %}
+                              <div class="col-lg-6">
+                                  <div class="box-element" id="form-wrapper">
+                                        <div class="form-field">
+                                            <input required class="form-control" type="number" name="sltoithieu" placeholder="Số cầu thủ tối thiều">
+                                        </div>
+            
+                                        <div class="form-field">
+                                            <input required class="form-control" type="number" name="sltoida" placeholder="Số cầu thủ tối đa">
+                                        </div>
+            
+                    
+                                        <hr>
+                                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoisl">THAY ĐỔI</button>
+                                  </div>   
+                              </div>
+                            </form>
+                      {% endif %}
+  
+  
+                      <!-- thay doi so luong ngoai quoc -->
+                      {% if ngoaiquoc %}
+                          {% for message in messages %}
+                              <h5>{{message}}</h5>
+                          {% endfor %}
+                          <form  action="" method = "POST">
+                              {% csrf_token %}
+                              <div class="col-lg-6">
+                                  <div class="box-element" id="form-wrapper">
+                                        <div class="form-field">
+                                            <input required class="form-control" type="number" name="ngoaiquoc" placeholder="Số cầu thủ tối đa">
+                                        </div>
+                    
+                                        <hr>
+                                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoingoaiquoc">THAY ĐỔI</button>
+                                  </div>   
+                              </div>
+                            </form>
+                      {% endif %}
+                  </div>
                   
-                                      <hr>
-                                      <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoituoi">THAY ĐỔI</button>
-                                </div>   
-                            </div>
-                          </form>
-                    {% endif %}
-
-
-                    <!-- thay doi so luong -->
-                    {% if soluong %}
-                        {% for message in messages %}
-                            <h5>{{message}}</h5>
-                        {% endfor %}
-                        <form  action="" method = "POST">
-                            {% csrf_token %}
-                            <div class="col-lg-6">
-                                <div class="box-element" id="form-wrapper">
-                                      <div class="form-field">
-                                          <input required class="form-control" type="number" name="sltoithieu" placeholder="Số cầu thủ tối thiều">
-                                      </div>
-          
-                                      <div class="form-field">
-                                          <input required class="form-control" type="number" name="sltoida" placeholder="Số cầu thủ tối đa">
-                                      </div>
-          
                   
-                                      <hr>
-                                      <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoisl">THAY ĐỔI</button>
-                                </div>   
-                            </div>
-                          </form>
-                    {% endif %}
-
-
-                    <!-- thay doi so luong ngoai quoc -->
-                    {% if ngoaiquoc %}
-                        {% for message in messages %}
-                            <h5>{{message}}</h5>
-                        {% endfor %}
-                        <form  action="" method = "POST">
-                            {% csrf_token %}
-                            <div class="col-lg-6">
-                                <div class="box-element" id="form-wrapper">
-                                      <div class="form-field">
-                                          <input required class="form-control" type="number" name="ngoaiquoc" placeholder="Số cầu thủ tối đa">
-                                      </div>
+  
                   
-                                      <hr>
-                                      <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoingoaiquoc">THAY ĐỔI</button>
-                                </div>   
-                            </div>
-                          </form>
-                    {% endif %}
-                </div>
-                
-                
-
-                
+          
+                  </div>
+          
+  
+  
+              </div>
+  
+          </center>
+          </div>
         
-                </div>
-        
-
-
-            </div>
-
-        </center>
         </div>
+        </div>
+        
     
 
 
