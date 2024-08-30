@@ -40,13 +40,14 @@ def TruyXuatCauThu(request):
 
 
 def TiepNhanHoSo(request):
-    global NOIBINH, NGOAIBINH, COUNTNOIBINH, COUNTNGOAIBINH, DOI
+    global NOIBINH, NGOAIBINH, DOI
 
     if request.method == "POST":
         ma_doi = request.POST['madoi']
         ten_doi = request.POST['tendoi']
         so_luong = int(request.POST['soluong'])
         ngoai_quoc = int(request.POST['ngoaiquoc'])
+        san_nha = request.POST['sannha']
 
         if len(ma_doi) != 3:
             messages.info(request, 'Mã đội phải là mã 3 ký tự')
@@ -54,6 +55,10 @@ def TiepNhanHoSo(request):
         
         elif Doi.objects.filter(ma_doi_bong = ma_doi).exists():
             messages.info(request, 'Mã đội đã tồn tại')
+            return redirect('TiepNhanHoSo')
+        
+        elif Doi.objects.filter(san_nha = san_nha).exists():
+            messages.info(request, 'Sân nhà đã có người đăng ký')
             return redirect('TiepNhanHoSo')
         
         elif not (SO_LUONG_CAU_THU[0] <= so_luong <= SO_LUONG_CAU_THU[1]):
@@ -67,7 +72,7 @@ def TiepNhanHoSo(request):
             return redirect('TiepNhanHoSo')
         
         else: 
-            Doi.objects.create(ma_doi_bong = ma_doi, ten_doi_bong = ten_doi, san_nha = "san nha", so_luong_cau_thu = so_luong, ngoai_quoc = ngoai_quoc).save()
+            Doi.objects.create(ma_doi_bong = ma_doi, ten_doi_bong = ten_doi, san_nha = san_nha, so_luong_cau_thu = so_luong, ngoai_quoc = ngoai_quoc).save()
             DOI = Doi.objects.get(ma_doi_bong = ma_doi)           
             NOIBINH = so_luong - ngoai_quoc
             NGOAIBINH = ngoai_quoc
@@ -94,7 +99,7 @@ def DangKiCauThu(request):
         tencauthu    = request.POST['tencauthu']  
         ngaysinh    = datetime.strptime(request.POST['ngaysinh'], '%Y-%m-%d').date()
         vitri    = request.POST['vitri']  
-        ghichu    = "Ngoại binh"
+        ghichu    = "Nội binh" if NOIBINH != 0 else "Ngoại binh"
 
     
         if len(macauthu) != 3:
@@ -117,7 +122,7 @@ def DangKiCauThu(request):
                 ghichu = "Nội binh"
                 messages.info(request, 'Nhập thông tin cầu thủ thứ ' + str(COUNTNOIBINH))     
 
-            elif COUNTNGOAIBINH < NGOAIBINH:   
+            elif COUNTNGOAIBINH < NGOAIBINH:  
                 COUNTNGOAIBINH += 1
                 
                 if COUNTNOIBINH == NOIBINH:
@@ -126,7 +131,7 @@ def DangKiCauThu(request):
                 else:
                     ghichu = "Ngoại binh"
 
-                messages.info(request, 'Nhập thông tin cầu thủ ngoại bình thứ ' + str(COUNTNGOAIBINH))   
+                messages.info(request, 'Nhập thông tin cầu thủ ngoại binh thứ ' + str(COUNTNGOAIBINH))   
 
             else:
                 messages.info(request, 'Đăng ký thành công')   
