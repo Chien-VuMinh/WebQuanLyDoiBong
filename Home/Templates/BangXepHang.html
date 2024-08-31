@@ -1,10 +1,6 @@
 {% load static %}
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
@@ -147,12 +143,47 @@
         </div>
 
 
-        <!-- Footer -->
-        <Footer class="container--fluid text-left fixed-bottom p-2 mt-5"> <strong>
-          Copyright ©  </strong>
-        </footer>
+        <footer class="container-fluid text-left fixed-bottom p-1 mt-4" style="font-size: 0.8rem;">
+          <strong>
+              Copyright ©
+          </strong>
+      </footer>
 
 
-        <script src="" async defer></script>
-    </body>
+    <main class="container mt-4">
+        <h2 class="mb-4">Bảng Xếp Hạng</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Đội Bóng</th>
+                        <th>Trận</th>
+                        <th>Thắng</th>
+                        <th>Hòa</th>
+                        <th>Thua</th>
+                        <th>Bàn Thắng</th>
+                        <th>Bàn Thua</th>
+                        <th>Điểm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doi in bang_xep_hang_list %}
+                    <tr>
+                        <td>{{ doi.ten_doi_bong }}</td>
+                        <td>{{ doi.tran }}</td>
+                        <td>{{ doi.thang }}</td>
+                        <td>{{ doi.hoa }}</td>
+                        <td>{{ doi.thua }}</td>
+                        <td>{{ doi.ban_thang }}</td>
+                        <td>{{ doi.ban_thua }}</td>
+                        <td>{{ doi.diem }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <script src="{% static 'app/js/all.min.js' %}" async defer></script>
+</body>
 </html>
