@@ -29,7 +29,7 @@ class CauThu(models.Model):
     loai_cau_thu    = models.CharField(max_length = 50, null = True, blank = False)
     ghi_chu         = models.CharField(max_length = 50, null = True, blank = True)
     doi             = models.ForeignKey(Doi, on_delete = models.SET_NULL,  null = True, blank = False)
-
+    so_ban_thang    = models.IntegerField(default=0)  # Thêm trường số bàn thắng
     
 
     def __str__(self):
