@@ -15,4 +15,5 @@ urlpatterns = [
     path('them-tran-dau/', views.ThemTranDau, name='ThemTranDau'),
     path('GhiNhanKetQua/', views.GhiNhanKetQua, name='GhiNhanKetQua'),
     path('bang-xep-hang/', views.BangXepHang, name='BangXepHang'),
+    path('doi/<str:ma_doi_bong>/', views.ChiTietDoi, name='ChiTietDoi'),
 ]
