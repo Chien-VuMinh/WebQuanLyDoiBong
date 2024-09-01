@@ -202,6 +202,16 @@ def LichThiDau(request):
     print(tran_daus)  # Debugging: Print to console or log
     return render(request, 'LichThiDau.html', {'tran_daus': tran_daus, 'mua_giai': current_season})
 
+def TaoMuaGiai(request):
+    if request.method == "POST":
+        ten_mua_giai = request.POST['ten_mua_giai']
+        ngay_bat_dau = request.POST['ngay_bat_dau']
+        ngay_ket_thuc = request.POST['ngay_ket_thuc']
+
+        MuaGiai.objects.create(ten_mua_giai=ten_mua_giai, ngay_bat_dau=ngay_bat_dau, ngay_ket_thuc=ngay_ket_thuc)
+        return redirect('LichThiDau')
+
+    return render(request, 'TaoMuaGiai.html')
 
 def ThemTranDau(request):
 
