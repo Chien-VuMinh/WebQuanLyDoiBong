@@ -40,7 +40,7 @@ def TruyXuatCauThu(request):
 
 
 def TiepNhanHoSo(request):
-    global NOIBINH, NGOAIBINH, DOI
+    global NOIBINH, NGOAIBINH, DOI, COUNTNOIBINH, COUNTNGOAIBINH
 
     if request.method == "POST":
         ma_doi = request.POST['madoi']
@@ -80,6 +80,7 @@ def TiepNhanHoSo(request):
             DOI = Doi.objects.get(ma_doi_bong = ma_doi)           
             NOIBINH = so_luong - ngoai_quoc
             NGOAIBINH = ngoai_quoc
+            COUNTNOIBINH, COUNTNGOAIBINH = 1, 0
 
             return redirect('DangKiCauThu')
 
@@ -103,7 +104,7 @@ def DangKiCauThu(request):
         tencauthu    = request.POST['tencauthu']  
         ngaysinh    = datetime.strptime(request.POST['ngaysinh'], '%Y-%m-%d').date()
         vitri    = request.POST['vitri']  
-        ghichu    = "Nội binh" if NOIBINH != 0 else "Ngoại binh"
+        ghichu    = "Nội binh" if COUNTNGOAIBINH == 0 else "Ngoại binh"
 
     
         if len(macauthu) != 3:
@@ -138,7 +139,6 @@ def DangKiCauThu(request):
                 messages.info(request, 'Nhập thông tin cầu thủ ngoại binh thứ ' + str(COUNTNGOAIBINH))   
 
             else:
-                messages.info(request, 'Đăng ký thành công')   
                 CauThu.objects.create(ma_cau_thu = macauthu, ten_cau_thu = tencauthu, ngay_sinh = ngaysinh, loai_cau_thu = vitri, ghi_chu = ghichu, doi = DOI)
                 return render(request, 'ThongBao.html', {'messages' : [DOI.ten_doi_bong], 'danh_sach_cau_thu' : CauThu.objects.filter(doi = DOI)})
             
