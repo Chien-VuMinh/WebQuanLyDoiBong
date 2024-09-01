@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, Http404
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
@@ -280,6 +280,7 @@ def ThemTranDau(request):
         doi_bongs = Doi.objects.all()
         return render(request, 'ThemTranDau.html', {'doi_bongs': doi_bongs})
 
+
 def GhiNhanKetQua(request):
     doi_bongs = Doi.objects.all()
 
@@ -311,6 +312,9 @@ def GhiNhanKetQua(request):
             try:
                 cau_thu = CauThu.objects.get(pk=cau_thu_id)
                 doi_ghi_ban = Doi.objects.get(ma_doi_bong=doi_ghi_ban_ma)
+                # Cập nhật số bàn thắng cho cầu thủ
+                cau_thu.so_ban_thang += 1
+                cau_thu.save()
             except (CauThu.DoesNotExist, Doi.DoesNotExist):
                 messages.error(request, f"Dữ liệu cầu thủ số {i} không hợp lệ.")
                 return redirect('ghi_nhan_ket_qua')
@@ -345,9 +349,10 @@ def BangXepHang(request):
     # Khởi tạo bảng xếp hạng cho các đội
     bang_xep_hang = {}
     doi_bong_list = Doi.objects.all()
-    
+
     for doi in doi_bong_list:
         bang_xep_hang[doi.ma_doi_bong] = {
+            'ma_doi_bong': doi.ma_doi_bong,
             'ten_doi_bong': doi.ten_doi_bong,
             'tran': 0,
             'thang': 0,
@@ -357,6 +362,7 @@ def BangXepHang(request):
             'ban_thua': 0,
             'diem': 0
         }
+        print(bang_xep_hang[doi.ma_doi_bong])
 
     # Lấy kết quả các trận đấu
     ket_qua_list = KetQua.objects.all()
@@ -395,4 +401,17 @@ def BangXepHang(request):
     # Chuyển đổi sang danh sách và sắp xếp theo điểm số và hiệu số bàn thắng
     bang_xep_hang_list = sorted(bang_xep_hang.values(), key=lambda x: (-x['diem'], x['ban_thang'] - x['ban_thua']))
 
-    return render(request, 'BangXepHang.html', {'bang_xep_hang_list': bang_xep_hang_list})
+    # Lấy danh sách 5 cầu thủ ghi bàn nhiều nhất
+    top_scorers = CauThu.objects.order_by('-so_ban_thang')[:5]
+
+    return render(request, 'BangXepHang.html', {
+        'bang_xep_hang_list': bang_xep_hang_list,
+        'top_scorers': top_scorers
+    })
+
+def ChiTietDoi(request, ma_doi_bong):
+    try:
+        doi_bong = Doi.objects.get(ma_doi_bong=ma_doi_bong)
+    except Doi.DoesNotExist:
+        raise Http404("Đội bóng không tồn tại")
+    return render(request, 'ChiTietDoi.html', {'doi_bong': doi_bong})
