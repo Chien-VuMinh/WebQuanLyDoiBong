@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from .models import *
 from datetime import datetime, date
+from django.utils import timezone
 
 
 
@@ -192,18 +193,23 @@ def ThayDoiQuyDinh(request):
 
 def LichThiDau(request):
     # Fetch all scheduled matches
-    tran_daus = TranDau.objects.all()
+    try:
+        current_season = MuaGiai.objects.latest('ngay_bat_dau')
+    except MuaGiai.DoesNotExist:
+        return redirect('TaoMuaGiai')  # Redirect to a view to create a new season
 
-    context = {
-        'tran_daus': tran_daus
-    }
-    return render(request, 'LichThiDau.html', context)
+    tran_daus = TranDau.objects.filter(mua_giai=current_season)
+    print(tran_daus)  # Debugging: Print to console or log
+    return render(request, 'LichThiDau.html', {'tran_daus': tran_daus, 'mua_giai': current_season})
 
 
 def ThemTranDau(request):
+
+    current_season = MuaGiai.objects.latest('ngay_bat_dau')
+
     if request.method == "POST":
         doi_nha_ma = request.POST.get('doi_nha')
-        doi_khach = request.POST['doi_khach']
+        doi_khach_ma = request.POST['doi_khach']
         ngay_thi_dau = request.POST['ngay_thi_dau']
         gio_thi_dau = request.POST['gio_thi_dau']
 
@@ -212,18 +218,51 @@ def ThemTranDau(request):
 
         try:
             doi_nha = Doi.objects.get(ma_doi_bong=doi_nha_ma)
+            doi_khach=Doi.objects.get(ma_doi_bong=doi_khach_ma)
             san_dau = doi_nha.san_nha
         except Doi.DoesNotExist:
             messages.error(request, "Đội nhà không tồn tại.")
             return redirect('ThemTranDau')
 
+        # 1. Check if the home team is the same as the away team
+        if doi_nha == doi_khach:
+            messages.error(request, 'Đội nhà và đội khách không thể là cùng một đội.')
+            return redirect('ThemTranDau')
+
+        # 2. Check if match between these two teams already exists in the season
+        if TranDau.objects.filter(doi_nha=doi_nha, doi_khach=doi_khach, mua_giai=current_season).exists():
+            messages.error(request, 'Trận đấu giữa hai đội này đã được tạo trong mùa giải này.')
+            return redirect('ThemTranDau')
+
+        current_time = datetime.now()
+        current_time = timezone.make_aware(current_time, timezone.get_current_timezone())
+        print(current_time)
+
+        # 3. Check if the match date is within the season's start and end dates
+        ngay_thi_dau = datetime.strptime(ngay_thi_dau, '%Y-%m-%d').date()
+        gio_thi_dau = datetime.strptime(gio_thi_dau, '%H:%M').time()
+        match_datetime = datetime.combine(ngay_thi_dau, gio_thi_dau)
+
+        # Convert match_datetime to an aware datetime
+        match_datetime = timezone.make_aware(match_datetime, timezone.get_current_timezone())
+
+        if match_datetime.date() < current_season.ngay_bat_dau or match_datetime.date() > current_season.ngay_ket_thuc:
+            messages.error(request, 'Ngày thi đấu phải nằm trong khoảng thời gian của mùa giải.')
+            return redirect('ThemTranDau')
+
+        # 4. Check if the match date is in the future
+        if match_datetime <= current_time:
+            messages.error(request, 'Ngày giờ thi đấu phải sau thời gian hiện tại.')
+            return redirect('ThemTranDau')
+
         # Assuming valid data
         TranDau.objects.create(
             doi_nha=doi_nha,
-            doi_khach=Doi.objects.get(ma_doi_bong=doi_khach),
+            doi_khach=doi_khach,
             ngay_thi_dau=ngay_thi_dau,
             gio_thi_dau=gio_thi_dau,
-            san_dau=san_dau
+            san_dau=san_dau,
+            mua_giai=current_season
         )
         return redirect('LichThiDau')
 
