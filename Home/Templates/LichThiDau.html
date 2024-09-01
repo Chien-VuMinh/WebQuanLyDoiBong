@@ -107,65 +107,42 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Lịch Thi Đấu</title>
       <style>
-          body {
-              font-family: Arial, sans-serif;
+          table {
+              border-collapse: collapse;
+              width: 100%;
           }
           
-          .container {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              margin-top: 50px;
+          th, td {
+              border: 1px solid black;
+              padding: 8px;
+              text-align: left;
+          }
+          
+          th {
+              background-color: #f2f2f2;
           }
           
           h1 {
               text-align: center;
-              margin-bottom: 20px;
           }
           
-          .match-table {
-              border-collapse: collapse;
-              width: 80%;
+          .center {
               text-align: center;
-          }
-          
-          .match-table th, .match-table td {
-              border: 1px solid black;
-              padding: 8px;
-          }
-          
-          .match-table th {
-              background-color: #f2f2f2;
-          }
-          
-          .add-button {
-              margin-top: 20px;
-              padding: 10px 20px;
-              font-size: 16px;
-              cursor: pointer;
-          }
-          
-          .add-button a {
-              text-decoration: none;
-              color: black;
           }
       </style>
   </head>
   <body>
-      <div class="container">
-          <h1>Lịch Thi Đấu</h1>
-          <table class="match-table">
-              <thead>
-                  <tr>
-                      <th>Đội Nhà</th>
-                      <th>Đội Khách</th>
-                      <th>Ngày Thi Đấu</th>
-                      <th>Giờ Thi Đấu</th>
-                      <th>Sân Đấu</th>
-                  </tr>
-              </thead>
-        <tbody>
+      <h1>Lịch Thi Đấu</h1>
+      <h3 class="center">{{ mua_giai.ten_mua_giai }}</h3>
+      <p class="center">Từ ngày: {{ mua_giai.ngay_bat_dau }} đến ngày: {{ mua_giai.ngay_ket_thuc }}</p>
+      <table>
+          <tr>
+              <th>Đội Nhà</th>
+              <th>Đội Khách</th>
+              <th>Ngày Thi Đấu</th>
+              <th>Giờ Thi Đấu</th>
+              <th>Sân Đấu</th>
+          </tr>
             {% for tran in tran_daus %}
             <tr>
                 <td>{{ tran.doi_nha.ten_doi_bong }}</td>
