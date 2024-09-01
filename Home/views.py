@@ -56,6 +56,10 @@ def TiepNhanHoSo(request):
         elif Doi.objects.filter(ma_doi_bong = ma_doi).exists():
             messages.info(request, 'Mã đội đã tồn tại')
             return redirect('TiepNhanHoSo')
+        
+        elif Doi.objects.filter(ten_doi_bong = ten_doi).exists():
+            messages.info(request, 'Tên đội đã tồn tại')
+            return redirect('TiepNhanHoSo')
 
         elif Doi.objects.filter(san_nha = san_nha).exists():
             messages.info(request, 'Sân nhà đã có người đăng ký')
