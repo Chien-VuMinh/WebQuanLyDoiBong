@@ -181,6 +181,19 @@
 
         function capNhatCauThu(stt, giaTri, truong) {
             danhSachCauThu[stt - 1][truong] = giaTri;
+            if (truong === 'cau_thu') {
+                // Cập nhật số bàn thắng cho cầu thủ trong danh sách
+                capNhatSoBanThang(stt, giaTri);
+            }
+            hienThiDanhSachCauThu();
+        }
+        
+        function capNhatSoBanThang(stt, maCauThu) {
+            danhSachCauThu.forEach((cauThu) => {
+                if (cauThu.cau_thu === maCauThu) {
+                    cauThu.so_ban_thang++;
+                }
+            });
         }
 
         function hienThiDanhSachCauThu() {
