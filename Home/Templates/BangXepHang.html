@@ -169,7 +169,11 @@
                 <tbody>
                     {% for doi in bang_xep_hang_list %}
                     <tr>
-                        <td>{{ doi.ten_doi_bong }}</td>
+                        <td>
+                            <a href="{% url 'ChiTietDoi' ma_doi_bong=doi.ma_doi_bong %}">
+                                {{ doi.ten_doi_bong }}
+                            </a>
+                        </td>
                         <td>{{ doi.tran }}</td>
                         <td>{{ doi.thang }}</td>
                         <td>{{ doi.hoa }}</td>
@@ -182,6 +186,17 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Hiển thị 5 cầu thủ ghi bàn nhiều nhất -->
+        <h3 class="mt-4">Cầu Thủ Ghi Bàn Nhiều Nhất</h3>
+        <ul class="list-group">
+            {% for cau_thu in top_scorers %}
+            <li class="list-group-item">
+                {{ cau_thu.ten_cau_thu }} - {{ cau_thu.so_ban_thang }} bàn
+            </li>
+            {% empty %}
+            <li class="list-group-item">Chưa có dữ liệu cầu thủ.</li>
+            {% endfor %}
     </main>
     
     <script src="{% static 'app/js/all.min.js' %}" async defer></script>
