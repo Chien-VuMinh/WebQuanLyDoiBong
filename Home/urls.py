@@ -10,6 +10,7 @@ urlpatterns = [
     path('DangKiCauThu/', views.DangKiCauThu, name = 'DangKiCauThu'),
     path('ThongBao/', views.ThongBao, name = 'ThongBao'),
     path('ThayDoiQuyDinh/', views.ThayDoiQuyDinh, name = 'ThayDoiQuyDinh'),
+    path('TaoMuaGiai/', views.TaoMuaGiai, name='TaoMuaGiai'),
     path('lich-thi-dau/', views.LichThiDau, name='LichThiDau'),
     path('them-tran-dau/', views.ThemTranDau, name='ThemTranDau'),
     path('GhiNhanKetQua/', views.GhiNhanKetQua, name='GhiNhanKetQua'),
