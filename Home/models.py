@@ -38,15 +38,24 @@ class CauThu(models.Model):
     class Meta:
         verbose_name_plural = 'Cầu Thủ'
 
+lass MuaGiai(models.Model):
+    ten_mua_giai = models.CharField(max_length=100)
+    ngay_bat_dau = models.DateField()
+    ngay_ket_thuc = models.DateField()
+
+    def __str__(self):
+        return self.ten_mua_giai
+
 class TranDau(models.Model):
     doi_nha = models.ForeignKey(Doi, related_name='doi_nha', on_delete=models.CASCADE)
     doi_khach = models.ForeignKey(Doi, related_name='doi_khach', on_delete=models.CASCADE)
     ngay_thi_dau = models.DateField()
     gio_thi_dau = models.TimeField()
     san_dau = models.CharField(max_length=100)
+    mua_giai = models.ForeignKey(MuaGiai, on_delete=models.CASCADE, default= 0)
 
     def __str__(self):
-        return f"{self.doi_nha.ten_doi_bong} vs {self.doi_khach.ten_doi_bong} on {self.ngay_thi_dau}"
+        return f"{self.doi_nha} vs {self.doi_khach} - {self.mua_giai.ten_mua_giai}"
 
 class KetQua(models.Model):
     doi_1 = models.ForeignKey(Doi, related_name='ghi_nhan_doi_1', on_delete=models.CASCADE)
