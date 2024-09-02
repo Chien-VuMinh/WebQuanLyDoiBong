@@ -38,7 +38,7 @@ class CauThu(models.Model):
     class Meta:
         verbose_name_plural = 'Cầu Thủ'
 
-lass MuaGiai(models.Model):
+class MuaGiai(models.Model):
     ten_mua_giai = models.CharField(max_length=100)
     ngay_bat_dau = models.DateField()
     ngay_ket_thuc = models.DateField()

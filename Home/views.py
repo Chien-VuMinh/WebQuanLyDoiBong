@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, Http404
 from django.http import HttpResponse
+
+from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from .models import *
@@ -298,8 +300,15 @@ def GhiNhanKetQua(request):
             doi_2 = Doi.objects.get(ma_doi_bong=doi_2_ma)
         except Doi.DoesNotExist:
             messages.error(request, "Mã đội bóng không hợp lệ.")
-            return redirect('ghi_nhan_ket_qua')
-
+            return redirect('GhiNhanKetQua')
+        
+        try:
+            ty_so_x, ty_so_y = map(int, ty_so.split(':'))
+            if ty_so_x < 0 or ty_so_y < 0:
+                raise ValueError("Tỷ số không được âm.")
+        except (ValueError, IndexError):
+            messages.error(request, "Tỷ số không hợp lệ. Vui lòng nhập tỷ số theo định dạng x:y và không âm.")
+            return redirect('GhiNhanKetQua')
         # Xử lý danh sách cầu thủ ghi bàn
         ban_thang = []
         so_ban_thang = int(request.POST.get('so_ban_thang', 0))
@@ -415,3 +424,16 @@ def ChiTietDoi(request, ma_doi_bong):
     except Doi.DoesNotExist:
         raise Http404("Đội bóng không tồn tại")
     return render(request, 'ChiTietDoi.html', {'doi_bong': doi_bong})
+def lay_tran_dau(request):
+    doi_1_id = request.GET.get('doi_1')
+    doi_2_id = request.GET.get('doi_2')
+
+    tran_dau = TranDau.objects.all()
+
+    if doi_1_id:
+        tran_dau = tran_dau.filter(doi_nha__ma_doi_bong=doi_1_id)
+    if doi_2_id:
+        tran_dau = tran_dau.filter(doi_khach__ma_doi_bong=doi_2_id)
+
+    tran_dau_list = list(tran_dau.values('doi_nha_id', 'doi_nha__ten_doi_bong', 'doi_khach_id', 'doi_khach__ten_doi_bong', 'ngay_thi_dau', 'gio_thi_dau'))
+    return JsonResponse(tran_dau_list, safe=False)

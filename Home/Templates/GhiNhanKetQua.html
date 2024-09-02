@@ -27,6 +27,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="">
+    
 </head>
 <body>
     <!-- Thanh Menu -->
@@ -101,58 +102,168 @@
 
                 <form action="" method="POST" id="ghi-nhan-ket-qua-form">
                     {% csrf_token %}
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <div class="box-element" id="form-wrapper">
                             <div class="form-field mb-3">
                                 <label for="doi_1" class="form-label">Đội 1:</label>
                                 <select class="form-select" id="doi_1" name="doi_1" required>
-                                    <option value="">-- Chọn đội 1 --</option>
+                                    <option value="">Chọn đội 1</option>
                                     {% for doi in doi_bongs %}
                                         <option value="{{ doi.ma_doi_bong }}">{{ doi.ten_doi_bong }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
-
+                
                             <div class="form-field mb-3">
                                 <label for="doi_2" class="form-label">Đội 2:</label>
                                 <select class="form-select" id="doi_2" name="doi_2" required>
-                                    <option value="">-- Chọn đội 2 --</option>
+                                    <option value="">Chọn đội 2</option>
                                     {% for doi in doi_bongs %}
                                         <option value="{{ doi.ma_doi_bong }}">{{ doi.ten_doi_bong }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
-
+                
                             <div class="form-field mb-3">
                                 <label for="ty_so" class="form-label">Tỷ số:</label>
-                                <input type="text" class="form-control" id="ty_so" name="ty_so" required>
+                                <input type="text" class="form-control" id="ty_so" name="ty_so" placeholder="0:0" required>
                             </div>
-
+                
                             <div class="form-field mb-3">
                                 <label for="san" class="form-label">Sân:</label>
-                                <input type="text" class="form-control" id="san" name="san" required>
+                                <input type="text" class="form-control" id="san" name="san" placeholder="Jerusalem" required>
                             </div>
-
+                
                             <div class="form-field mb-3">
                                 <label for="ngay" class="form-label">Ngày:</label>
-                                <input type="date" class="form-control" id="ngay" name="ngay" required>
+                                <input type="text" class="form-control" id="ngay" name="ngay" placeholder="YYYY-MM-DD">
                             </div>
                             <div class="form-field mb-3">
                                 <label for="gio" class="form-label">Giờ:</label>
-                                <input type="time" class="form-control" id="gio" name="gio" required>
+                                <input type="time" class="form-control" id="gio" name="gio" > 
                             </div>
-
+                
                             <div id="danh-sach-cau-thu">
                                 <!-- Danh sách cầu thủ ghi bàn sẽ được thêm vào đây -->
                             </div>
-
-                            <button type="button" class="btn btn-secondary" onclick="themCauThu()">Thêm Bàn Thắng</button>
+                
+                            <button type="button" class="btn btn-secondary btn-spacing" onclick="themCauThu()">Thêm Bàn Thắng</button>
                             <input type="hidden" name="so_ban_thang" id="so_ban_thang" value="0">
-                            <input id="form-button" class="btn btn-success btn-block" type="submit" value="Ghi Nhận">
+                            <input id="form-button" class="btn btn-success btn-block btn-spacing" type="submit" value="Ghi Nhận">
+                            <button type="button" class="btn btn-warning btn-spacing" onclick="lamMoiForm()">Làm mới</button>
                         </div>
                     </div>
-                </form>
+                    <script>
+                        const doi1Select = document.getElementById('doi_1');
+                        const doi2Select = document.getElementById('doi_2');
+                        const ngayInput = document.getElementById('ngay');
+                        const gioInput = document.getElementById('gio');
+                        
+                        var initialOptions = {
+                            doi_1: document.getElementById('doi_1').innerHTML,
+                            doi_2: document.getElementById('doi_2').innerHTML
+                        };
+                        doi1Select.addEventListener('change', () => {
+                            const doi1Id = doi1Select.value;
+                            const doi2Id = doi2Select.value;
+                            if (!doi1Id) {
+                                // Nếu doi_1 chọn về mặc định
+                                document.getElementById('doi_2').innerHTML = initialOptions.doi_2;
+                                document.getElementById('doi_2').value = doi2Id;
+                            } else
+                            if (doi2Id) {
+                                // Nếu doi_2 đã được chọn, hiển thị ngày và giờ
+                                fetch(`/lay-tran-dau/?doi_1=${doi1Id}&doi_2=${doi2Id}`)
+                                    .then(response => response.json())
+                                    .then(data => updateTranDauInfo(data));
+                            } else {
+                                // Nếu doi_2 chưa được chọn, cập nhật danh sách đội 2
+                                fetch(`/lay-tran-dau/?doi_1=${doi1Id}`)
+                                    .then(response => response.json())
+                                    .then(data => populateDoi2Options(data));
+                            }
+                        });
+                    
+                        doi2Select.addEventListener('change', () => {
+                            const doi1Id = doi1Select.value;
+                            const doi2Id = doi2Select.value;
+                            if (!doi2Id) {
+                                // Nếu doi_2 chọn về mặc định
+                                document.getElementById('doi_1').innerHTML = initialOptions.doi_1;
+                                document.getElementById('doi_1').value = doi1Id;
+                            } else
+                            if (doi1Id) {
+                                // Nếu doi_1 đã được chọn, hiển thị ngày và giờ
+                                fetch(`/lay-tran-dau/?doi_1=${doi1Id}&doi_2=${doi2Id}`)
+                                    .then(response => response.json())
+                                    .then(data => updateTranDauInfo(data));
+                            } else {
+                                // Nếu doi_1 chưa được chọn, cập nhật danh sách đội 1
+                                fetch(`/lay-tran-dau/?doi_2=${doi2Id}`)
+                                    .then(response => response.json())
+                                    .then(data => populateDoi1Options(data));
+                            }
+                        });
+                    
+                        function populateDoi2Options(data) {
+                            let options = '<option value="">Chọn đội 2</option>';
+                            data.forEach(tranDau => {
+                                options += `<option value="${tranDau.doi_khach_id}">${tranDau.doi_khach__ten_doi_bong}</option>`; // Sửa dòng này
+                            });
+                            doi2Select.innerHTML = options;
+                        }
+                        
+                        function populateDoi1Options(data) {
+                            let options = '<option value="">Chọn đội 1</option>';
+                            data.forEach(tranDau => {
+                                options += `<option value="${tranDau.doi_nha_id}">${tranDau.doi_nha__ten_doi_bong}</option>`; // Sửa dòng này
+                            });
+                            doi1Select.innerHTML = options;
+                        }
+                    
+                        function updateTranDauInfo(data) {
+                            if (data.length > 0) {
+                                const tranDau = data[0];
+                                ngayInput.value = tranDau.ngay_thi_dau;
+                                gioInput.value = tranDau.gio_thi_dau;
+                            } else {
+                                ngayInput.value = '';
+                                gioInput.value = '';
+                            }
+                        }
+                        function lamMoiForm() {
+                            // Reset các trường select
+                            document.getElementById('doi_1').selectedIndex = 0;
+                            document.getElementById('doi_2').selectedIndex = 0;
+                            document.getElementById('doi_1').innerHTML = initialOptions.doi_1;
+                            document.getElementById('doi_2').innerHTML = initialOptions.doi_2;
+                            // Reset các trường input
+                            document.getElementById('ty_so').value = '';
+                            document.getElementById('san').value = '';
+                            document.getElementById('ngay').value = '';
+                            document.getElementById('gio').value = '';
 
+                            // Xóa danh sách cầu thủ ghi bàn
+                            document.getElementById('danh-sach-cau-thu').innerHTML = '';
+
+                            // Reset số bàn thắng về 0
+                            document.getElementById('so_ban_thang').value = '0';
+                        }
+                    </script>
+                </form>
+                <style>
+                    
+                    #ghi-nhan-ket-qua-form input, 
+                    #ghi-nhan-ket-qua-form select {
+                        text-align: center;
+                    }
+                    .btn-spacing {
+                        margin-right: 50px; 
+                    }
+
+
+                </style>
+                
             </div>
         </center>
     </div>
@@ -203,10 +314,10 @@
                     <div class="cau-thu-item mb-3" id="cau-thu-${index + 1}">
                         <h4>Cầu Thủ ${index + 1}</h4>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="cau_thu_${index + 1}" class="form-label">Cầu Thủ:</label>
                                 <select class="form-select" id="cau_thu_${index + 1}" name="cau_thu_${index + 1}" onchange="capNhatCauThu(${index + 1}, this.value, 'cau_thu')" required>
-                                    <option value="">-- Chọn cầu thủ --</option>
+                                    <option value="">Chọn Cầu Thủ</option>
                                     {% for doi in doi_bongs %}
                                         <optgroup label="Đội {{ doi.ten_doi_bong }}">
                                             {% for cau_thu in doi.cauthu_set.all %}
@@ -219,7 +330,7 @@
                             <div class="col-md-3">
                                 <label for="doi_ghi_ban_${index + 1}" class="form-label">Đội Ghi Bàn:</label>
                                 <select class="form-select" id="doi_ghi_ban_${index + 1}" name="doi_ghi_ban_${index + 1}" onchange="capNhatCauThu(${index + 1}, this.value, 'doi_ghi_ban')" required>
-                                    <option value="">-- Chọn đội ghi bàn --</option>
+                                    <option value="">Chọn đội ghi bàn</option>
                                     {% for doi in doi_bongs %}
                                         <option value="{{ doi.ma_doi_bong }}" ${cauThu.doi_ghi_ban === '{{ doi.ma_doi_bong }}' ? 'selected' : ''}>{{ doi.ten_doi_bong }}</option>
                                     {% endfor %}
@@ -237,7 +348,7 @@
                                 <label for="thoi_diem_${index + 1}" class="form-label">Thời Điểm:</label>
                                 <input type="number" class="form-control" id="thoi_diem_${index + 1}" name="thoi_diem_${index + 1}" min="0" max="96" value="${cauThu.thoi_diem}" onchange="capNhatCauThu(${index + 1}, this.value, 'thoi_diem')" required>
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-1 d-flex align-items-end">
                                 <button type="button" class="btn btn-danger" onclick="xoaCauThu(${index + 1})">Xóa</button>
                             </div>
                         </div>
