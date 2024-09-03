@@ -467,5 +467,5 @@ def lay_tran_dau(request):
     if doi_2_id:
         tran_dau = tran_dau.filter(doi_khach__ma_doi_bong=doi_2_id)
 
-    tran_dau_list = list(tran_dau.values('doi_nha_id', 'doi_nha__ten_doi_bong', 'doi_khach_id', 'doi_khach__ten_doi_bong', 'ngay_thi_dau', 'gio_thi_dau'))
+    tran_dau_list = list(tran_dau.values('doi_nha_id', 'doi_nha__ten_doi_bong', 'doi_khach_id', 'doi_khach__ten_doi_bong', 'san_dau', 'ngay_thi_dau', 'gio_thi_dau'))
     return JsonResponse(tran_dau_list, safe=False)
