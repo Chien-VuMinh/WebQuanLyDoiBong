@@ -380,7 +380,7 @@ def GhiNhanKetQua(request):
                 cau_thu.save()
             except (CauThu.DoesNotExist, Doi.DoesNotExist):
                 messages.error(request, f"Dữ liệu cầu thủ số {i} không hợp lệ.")
-                return redirect('ghi_nhan_ket_qua')
+                return redirect('GhiNhanKetQua')
 
             ban_thang.append({
                 'cau_thu': cau_thu_id,
