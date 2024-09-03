@@ -112,10 +112,16 @@
               width: 100%;
           }
           
+          .schedule-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-top: 20px;
+          }
+
           th, td {
               border: 1px solid black;
               padding: 8px;
-              text-align: left;
+              text-align: center;
           }
           
           th {
@@ -132,6 +138,7 @@
       </style>
   </head>
   <body>
+    <div class="schedule-container">
       <h1>Lịch Thi Đấu</h1>
       <h3 class="center">{{ mua_giai.ten_mua_giai }}</h3>
       <p class="center">Từ ngày: {{ mua_giai.ngay_bat_dau }} đến ngày: {{ mua_giai.ngay_ket_thuc }}</p>
@@ -154,6 +161,7 @@
             {% endfor %}
         </tbody>
       </table>
+      <div class="text-center">
       <button class="add-button">
           <a href="{% url 'ThemTranDau' %}">Thêm Lịch Thi Đấu Mới</a>
       </button>

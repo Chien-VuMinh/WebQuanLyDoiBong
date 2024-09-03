@@ -1,9 +1,6 @@
 {% load static %}
 
 <!DOCTYPE html>
-{% load static %}
-
-<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -105,48 +102,83 @@
         </nav>
 
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Thêm Lịch Thi Đấu</title>
-</head>
-<body>
-    <h1>Thêm Lịch Thi Đấu</h1>
-
-    <!-- Display error and success messages -->
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li style="color: {% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% else %}black{% endif %};">
-                    {{ message }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    <form method="POST">
-        {% csrf_token %}
-        <label for="doi_nha">Đội Nhà:</label>
-        <select name="doi_nha" required>
-            {% for doi in doi_bongs %}
-            <option value="{{ doi.ma_doi_bong }}">{{ doi.ten_doi_bong }}</option>
-            {% endfor %}
-        </select><br><br>
-
-        <label for="doi_khach">Đội Khách:</label>
-        <select name="doi_khach" required>
-            {% for doi in doi_bongs %}
-            <option value="{{ doi.ma_doi_bong }}">{{ doi.ten_doi_bong }}</option>
-            {% endfor %}
-        </select><br><br>
-
-        <label for="ngay_thi_dau">Ngày Thi Đấu:</label>
-        <input type="date" name="ngay_thi_dau" required><br><br>
-
-        <label for="gio_thi_dau">Giờ Thi Đấu:</label>
-        <input type="time" name="gio_thi_dau" required><br><br>
-
-        <button type="submit">Thêm Lịch Thi Đấu</button>
-    </form>
-</body>
-</html>
+        <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Thêm Lịch Thi Đấu</title>
+          </head>
+          <body>
+          
+              <!-- Main Body -->
+              <div class="row" style="width: 100%;">  
+                  <center>
+                      <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                          <h1 class="lg:text-3xl text-xl font-semibold mb-6">Thêm Lịch Thi Đấu</h1>
+          
+                          <!-- Display error and success messages -->
+                          <div>
+                              <style>
+                                  h5 {
+                                      color: red;
+                                  }
+                              </style>
+                              {% for message in messages %}
+                                  <h5>{{ message }}</h5>
+                              {% endfor %}
+                          </div>
+          
+                          <!-- Form for adding a new match schedule -->
+                          <form action="" method="POST">
+                              {% csrf_token %}
+                              <div class="col-lg-6">
+                                  <div class="box-element" id="form-wrapper">
+                                      <!-- Home Team -->
+                                      <div class="form-field">
+                                          <select required class="form-control" name="doi_nha">
+                                              <option value="" disabled selected>Chọn Đội Nhà</option>
+                                              {% for doi in doi_bongs %}
+                                                  <option value="{{ doi.ma_doi_bong }}">{{ doi.ten_doi_bong }}</option>
+                                              {% endfor %}
+                                          </select>
+                                      </div>
+          
+                                      <!-- Away Team -->
+                                      <div class="form-field">
+                                          <select required class="form-control" name="doi_khach">
+                                              <option value="" disabled selected>Chọn Đội Khách</option>
+                                              {% for doi in doi_bongs %}
+                                                  <option value="{{ doi.ma_doi_bong }}">{{ doi.ten_doi_bong }}</option>
+                                              {% endfor %}
+                                          </select>
+                                      </div>
+          
+                                      <!-- Match Date -->
+                                      <div class="form-field">
+                                          <label for="ngay_thi_dau">Ngày Thi Đấu:</label><br>
+                                          <input required class="form-control" type="date" name="ngay_thi_dau" placeholder="Ngày Thi Đấu">
+                                      </div>
+          
+                                      <!-- Match Time -->
+                                      <div class="form-field">
+                                          <label for="gio_thi_dau">Giờ Thi Đấu:</label><br>
+                                          <input required class="form-control" type="time" name="gio_thi_dau" placeholder="Giờ Thi Đấu">
+                                      </div>
+          
+                                      <!-- Submit Button -->
+                                      <hr>
+                                      <input id="form-button" class="btn btn-success btn-block" type="submit" value="Thêm Lịch Thi Đấu">
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                  </center>
+              </div>
+          
+              <!-- Footer -->
+              <footer class="container-fluid text-left fixed-bottom p-2 mt-5">
+                  <strong>Copyright ©</strong>
+              </footer>
+          
+          </body>
+          </html>
