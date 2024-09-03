@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from .views import XoaMuaGiai
 
 
 urlpatterns = [
@@ -11,6 +12,7 @@ urlpatterns = [
     path('ThongBao/', views.ThongBao, name = 'ThongBao'),
     path('ThayDoiQuyDinh/', views.ThayDoiQuyDinh, name = 'ThayDoiQuyDinh'),
     path('TaoMuaGiai/', views.TaoMuaGiai, name='TaoMuaGiai'),
+    path('xoa-mua-giai/<int:mua_giai_id>/', XoaMuaGiai, name='XoaMuaGiai'),
     path('lich-thi-dau/', views.LichThiDau, name='LichThiDau'),
     path('them-tran-dau/', views.ThemTranDau, name='ThemTranDau'),
     path('GhiNhanKetQua/', views.GhiNhanKetQua, name='GhiNhanKetQua'),
