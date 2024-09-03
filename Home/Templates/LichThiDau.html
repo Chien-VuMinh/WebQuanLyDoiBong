@@ -157,6 +157,11 @@
       <button class="add-button">
           <a href="{% url 'ThemTranDau' %}">Thêm Lịch Thi Đấu Mới</a>
       </button>
+           <!-- Example button to delete a season -->
+<form action="{% url 'XoaMuaGiai' mua_giai.id %}" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa mùa giải này?');">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Xóa Mùa Giải</button>
+</form>
   </div>
 </body>
 </html>
