@@ -481,7 +481,7 @@ def BangXepHang(request):
         bang_xep_hang_list.sort(key=lambda x: (-x['diem'],x['ban_thua'], -x['ban_thang'], -x['tran']))
     elif xep_hang == 'sotran_banthang_banthua':
         bang_xep_hang_list.sort(key=lambda x: (-x['diem'],-x['tran'], -x['ban_thang'], x['ban_thua']))
-    else:  # Mặc định là xếp theo điểm số
+    elif xep_hang == 'macdinh':  # Mặc định là xếp theo điểm số
         bang_xep_hang_list.sort(key=lambda x: (-x['diem'], -x['ban_thang'], x['ban_thua'],-x['tran']))
 
     # Lấy danh sách 5 cầu thủ ghi bàn nhiều nhất
