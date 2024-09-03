@@ -7,6 +7,7 @@ from django.contrib.auth.models import User, auth
 from .models import *
 from datetime import datetime, date
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 
 
@@ -214,6 +215,37 @@ def TaoMuaGiai(request):
         return redirect('LichThiDau')
 
     return render(request, 'TaoMuaGiai.html')
+
+def XoaMuaGiai(request, mua_giai_id):
+    try:
+        # Retrieve the season
+        mua_giai = get_object_or_404(MuaGiai, id=mua_giai_id)
+
+        # Lấy danh sách các đội bóng thuộc mùa giải này
+        doi_list = Doi.objects.all()
+        
+        # Reset số bàn thắng của tất cả cầu thủ của các đội bóng thuộc mùa giải này
+        for doi in doi_list:
+            cau_thu_list = CauThu.objects.filter(doi=doi)
+            cau_thu_list.update(so_ban_thang=0)
+        
+        # Delete all matches related to the season
+        TranDau.objects.filter(mua_giai=mua_giai).delete()
+        
+        KetQua.objects.all().delete()
+
+        # Delete the season
+        mua_giai.delete()
+        
+        # Show success message
+        messages.success(request, "Đã xóa mùa giải và các trận đấu liên quan thành công.")
+        
+        # Redirect to create new season page
+        return redirect('TaoMuaGiai')
+
+    except MuaGiai.DoesNotExist:
+        messages.error(request, "Mùa giải không tồn tại.")
+        return redirect('LichThiDau')
 
 def ThemTranDau(request):
 
