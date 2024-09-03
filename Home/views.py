@@ -216,7 +216,7 @@ def ThayDoiQuyDinh(request):
             f = open("regulation.txt", "w")
             f.write(str(AGE[0]) + ' ' + str(AGE[1]) + '\n')
             f.write(str(SO_LUONG_CAU_THU[0]) + ' ' + str(SO_LUONG_CAU_THU[1]) + '\n')
-            f.write(str(SO_LUONG_CAU_THU_NGOAI_QUOC[0]) + ' ' + str(SO_LUONG_CAU_THU_NGOAI_QUOC[1]))
+            f.write(str(SO_LUONG_CAU_THU_NGOAI_QUOC[0]) + ' ' + str(SO_LUONG_CAU_THU_NGOAI_QUOC[1]) + '\n')
             f.write(str(DIEM_THANG)+ ' '+ str(DIEM_HOA)+ ' '+ str(DIEM_THUA) + '\n')
             f.write(str(XEP_HANG)+'\n')
             f.close()
