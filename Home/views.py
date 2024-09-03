@@ -377,7 +377,11 @@ def GhiNhanKetQua(request):
         except Doi.DoesNotExist:
             messages.error(request, "Mã đội bóng không hợp lệ.")
             return redirect('GhiNhanKetQua')
-
+        try:
+            tran_dau = TranDau.objects.get(doi_nha=doi_1, doi_khach=doi_2, ngay_thi_dau=ngay, gio_thi_dau=gio)
+        except TranDau.DoesNotExist:
+            messages.error(request, "Trận đấu không tồn tại.")
+            return redirect('GhiNhanKetQua')
         try:
             ty_so_x, ty_so_y = map(int, ty_so.split(':'))
             if ty_so_x < 0 or ty_so_y < 0:

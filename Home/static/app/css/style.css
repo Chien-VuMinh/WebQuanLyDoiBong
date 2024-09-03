@@ -66,17 +66,19 @@ h2 {
 /* Input field */
 input[type=number] {
     width: 100%; /* Full width */
-    padding: 10px; /* Some padding */
+    padding: 10px; /* Some padding */   
     margin-bottom: 20px; /* Space below the input */
     border: 1px solid #ccc; /* Grey border */
     border-radius: 4px; /* Rounded corners */
 }
-
+.button-container {
+    position: relative; /* Đảm bảo button nằm trong container */
+  }
 /* Submit button */
 button {
     background-color: #28a745; /* Bootstrap success color */
     color: white; /* White text */
-    padding: 10px 15px; /* Some padding */
+    padding: 10px 20px; /* Some padding */
     border: none; /* No border */
     border-radius: 4px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor on hover */
