@@ -1,7 +1,5 @@
 {% load static %}
 
-
-
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -35,51 +33,73 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+
+        
         <!-- Thanh Menu -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="{% url 'home' %}">
-                <img src=" {% static 'app/images/logo.jpg' %}" width = "70" height= "70" />
-              </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-  
-                  <!-- Home tag -->
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >
-                      Trang Chủ
-                    </a>
-                  </li>
+          <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">
+              <img src=" {% static 'app/images/logo.jpg' %}" width = "70" height= "70" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- Home tag -->
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >
+                    Trang Chủ
+                  </a>
+                </li>
+
+            
+
+                <!-- Chuc Nang tag -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Chức Năng
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'TruyXuatCauThu' %}">Truy Xuất Cầu Thủ</a></li>
+                    <li><a class="dropdown-item" href="{% url 'TiepNhanHoSo' %}">Tiếp Nhận Hồ Sơ</a></li>
+                    <li><a class="dropdown-item" href="{% url 'LichThiDau' %}">Lịch Thi Đấu</a></li>
+                    <li><a class="dropdown-item" href="{% url 'GhiNhanKetQua' %}">Ghi Nhận Kết Quả</a></li>
+                    <li><a class="dropdown-item" href="{% url 'BangXepHang' %}">Bảng Xếp Hạng</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'ThayDoiQuyDinh' %}">Thay Đổi Quy Định</a></li>
+                  </ul>
+                </li>
+
+
+                <!-- About us tag -->
+                <li class="nav-item">
+                  <a class="nav-link active" href="https://www.facebook.com/chien.vuminh.75/">
+                    Liên Hệ
+                  </a>
+                </li>
+              </ul>
+
+
+
               
-  
-                  <!-- Chuc Nang tag -->
-                  <li class="nav-item dropdown">
-                    <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Chức Năng
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'TruyXuatCauThu' %}" >Truy Xuất Cầu Thủ</a></li>
-                      <li><a class="dropdown-item" href="">Tiếp Nhận Hồ Sơ</a></li>
-                      <li><a class="dropdown-item" href="#">Chuc Nang 3</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="">Thay Đổi Quy Định</a></li>
-                    </ul>
-                  </li>
-  
-  
-                  <!-- About us tag -->
-                  <li class="nav-item">
-                    <a class="nav-link active" href="https://www.facebook.com/chien.vuminh.75/">
-                      Liên Hệ
-                    </a>
-                  </li>
-                </ul>                 
-              </div>
+            <ul class="navbar-nav  mb-2 mb-lg-0">
+
+              <li class="nav-item">
+                <a class="nav-link" href="admin">Admin</a>
+              </li>
+
+            </ul>
+
+             
             </div>
-          </nav>
+          </div>
+        </nav>
 
 
 
