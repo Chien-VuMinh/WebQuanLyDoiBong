@@ -158,7 +158,7 @@ def DangKiCauThu(request):
 DIEM_THANG = 3
 DIEM_HOA = 2
 DIEM_THUA = 1
-XEP_HANG = 0
+XEP_HANG = 'diem'
 
 def ThongBao(request):
     return render(request, 'ThongBao.html')
