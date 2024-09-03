@@ -188,7 +188,7 @@ def ThayDoiQuyDinh(request):
             SO_LUONG_CAU_THU_NGOAI_QUOC[1] = int(request.POST['ngoaiquoc'])
             return render(request, 'ThayDoiQuyDinh.html')
 
-         elif QuyDinh == 'diemso':
+        elif QuyDinh == 'diemso':
             return render(request, 'ThayDoiQuyDinh.html', {'diemso': ['diemso'], 'messages': ['Nhập số điểm cho Thắng, Hòa, Thua']})
         elif QuyDinh == 'thaydoidiemso':
             DIEM_THANG = int(request.POST['diem_thang'])
