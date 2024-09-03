@@ -1,398 +1,411 @@
-{% load static %}
+    {% load static %}
 
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!DOCTYPE html>
+    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <!-- css -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link href="{%static 'app/css/style.css' %}" rel="stylesheet" />
-        <link href="{%static 'app/css/owl.carousel.min.css' %}" rel="stylesheet" />
-        <link href="{%static 'app/css/all.min.css' %}" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="{%static 'app/css/main.css' %}">
-        
-
-        <!-- js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-        <script src="{%static 'app/js/all.min.js' %}" /> </script>
-        <script src="{%static 'app/js/myscript.js' %}" /> </script>
-        <script src="{%static 'app/js/owl.carousel.min.js' %}" /> </script>
-
-        
-        <title> Quản Lý Giải Bóng Đá </title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        
-
-        
-        <!-- Thanh Menu -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">
-              <img src=" {% static 'app/images/logo.jpg' %}" width = "70" height= "70" />
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                <!-- Home tag -->
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >
-                    Trang Chủ
-                  </a>
-                </li>
-
+            <!-- css -->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+            <link href="{%static 'app/css/style.css' %}" rel="stylesheet" />
+            <link href="{%static 'app/css/owl.carousel.min.css' %}" rel="stylesheet" />
+            <link href="{%static 'app/css/all.min.css' %}" rel="stylesheet" />
+            <link rel="stylesheet" type="text/css" href="{%static 'app/css/main.css' %}">
             
 
-                <!-- Chuc Nang tag -->
-                <li class="nav-item dropdown">
-                  <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Chức Năng
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'TruyXuatCauThu' %}">Truy Xuất Cầu Thủ</a></li>
-                    <li><a class="dropdown-item" href="{% url 'TiepNhanHoSo' %}">Tiếp Nhận Hồ Sơ</a></li>
-                    <li><a class="dropdown-item" href="{% url 'LichThiDau' %}">Lịch Thi Đấu</a></li>
-                    <li><a class="dropdown-item" href="{% url 'GhiNhanKetQua' %}">Ghi Nhận Kết Quả</a></li>
-                    <li><a class="dropdown-item" href="{% url 'BangXepHang' %}">Bảng Xếp Hạng</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'ThayDoiQuyDinh' %}">Thay Đổi Quy Định</a></li>
-                  </ul>
-                </li>
+            <!-- js -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+            <script src="{%static 'app/js/all.min.js' %}" /> </script>
+            <script src="{%static 'app/js/myscript.js' %}" /> </script>
+            <script src="{%static 'app/js/owl.carousel.min.js' %}" /> </script>
+
+            
+            <title> Quản Lý Giải Bóng Đá </title>
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="">
+        </head>
+        <body>
+            <!--[if lt IE 7]>
+                <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+            <![endif]-->
+            
+
+            
+            <!-- Thanh Menu -->
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                <img src=" {% static 'app/images/logo.jpg' %}" width = "70" height= "70" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <!-- Home tag -->
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >
+                        Trang Chủ
+                    </a>
+                    </li>
+
+                
+
+                    <!-- Chuc Nang tag -->
+                    <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Chức Năng
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'TruyXuatCauThu' %}">Truy Xuất Cầu Thủ</a></li>
+                        <li><a class="dropdown-item" href="{% url 'TiepNhanHoSo' %}">Tiếp Nhận Hồ Sơ</a></li>
+                        <li><a class="dropdown-item" href="{% url 'LichThiDau' %}">Lịch Thi Đấu</a></li>
+                        <li><a class="dropdown-item" href="{% url 'GhiNhanKetQua' %}">Ghi Nhận Kết Quả</a></li>
+                        <li><a class="dropdown-item" href="{% url 'BangXepHang' %}">Bảng Xếp Hạng</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'ThayDoiQuyDinh' %}">Thay Đổi Quy Định</a></li>
+                    </ul>
+                    </li>
 
 
-                <!-- About us tag -->
+                    <!-- About us tag -->
+                    <li class="nav-item">
+                    <a class="nav-link active" href="https://www.facebook.com/chien.vuminh.75/">
+                        Liên Hệ
+                    </a>
+                    </li>
+                </ul>
+
+
+
+                
+                <ul class="navbar-nav  mb-2 mb-lg-0">
+
                 <li class="nav-item">
-                  <a class="nav-link active" href="https://www.facebook.com/chien.vuminh.75/">
-                    Liên Hệ
-                  </a>
+                    <a class="nav-link" href="admin">Admin</a>
                 </li>
-              </ul>
 
+                </ul>
 
-
-              
-            <ul class="navbar-nav  mb-2 mb-lg-0">
-
-              <li class="nav-item">
-                <a class="nav-link" href="admin">Admin</a>
-              </li>
-
-            </ul>
-
-             
-            </div>
-          </div>
-        </nav>
-
-    <!-- Main Body -->
-    <div class="row" style="width: 100%">
-        <center>
-            <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-                <h1 class="lg:text-3xl text-xl font-semibold  mb-6"> GHI NHẬN KẾT QUẢ TRẬN ĐẤU </h1>
-
-                <div>
-                    <style>
-                        .thong-bao-thanh-cong {
-                            color: green;
-                        }
-                        .thong-bao-loi {
-                            color: red;
-                        }
-                    </style>
-                    {% for message in messages %}
-                        <h5 class="{% if message.tags == 'success' %}thong-bao-thanh-cong{% else %}thong-bao-loi{% endif %}">
-                            {{ message }}
-                        </h5>
-                    {% endfor %}
+                
                 </div>
-                
-
-                <form action="" method="POST" id="ghi-nhan-ket-qua-form">
-                    {% csrf_token %}
-                    <div class="col-lg-8">
-                        <div class="box-element" id="form-wrapper">
-                            <div class="form-field mb-3">
-                                <label for="doi_1" class="form-label">Đội 1:</label>
-                                <select class="form-select" id="doi_1" name="doi_1" required>
-                                    <option value="">Chọn đội 1</option>
-                                    {% for doi in doi_bongs %}
-                                        <option value="{{ doi.ma_doi_bong }}">{{ doi.ten_doi_bong }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                
-                            <div class="form-field mb-3">
-                                <label for="doi_2" class="form-label">Đội 2:</label>
-                                <select class="form-select" id="doi_2" name="doi_2" required>
-                                    <option value="">Chọn đội 2</option>
-                                    {% for doi in doi_bongs %}
-                                        <option value="{{ doi.ma_doi_bong }}">{{ doi.ten_doi_bong }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                
-                            <div class="form-field mb-3">
-                                <label for="ty_so" class="form-label">Tỷ số:</label>
-                                <input type="text" class="form-control" id="ty_so" name="ty_so" placeholder="0:0" required>
-                            </div>
-                
-                            <div class="form-field mb-3">
-                                <label for="san" class="form-label">Sân:</label>
-                                <input type="text" class="form-control" id="san" name="san" placeholder="Jerusalem">
-                            </div>
-                
-                            <div class="form-field mb-3">
-                                <label for="ngay" class="form-label">Ngày:</label>
-                                <input type="text" class="form-control" id="ngay" name="ngay" placeholder="YYYY-MM-DD">
-                            </div>
-                            <div class="form-field mb-3">
-                                <label for="gio" class="form-label">Giờ:</label>
-                                <input type="time" class="form-control" id="gio" name="gio" > 
-                            </div>
-                
-                            <div id="danh-sach-cau-thu">
-                                <!-- Danh sách cầu thủ ghi bàn sẽ được thêm vào đây -->
-                            </div>
-                
-                            <button type="button" class="btn btn-secondary btn-spacing" onclick="themCauThu()">Thêm Bàn Thắng</button>
-                            <input type="hidden" name="so_ban_thang" id="so_ban_thang" value="0">
-                            <input id="form-button" class="btn btn-success btn-block btn-spacing" type="submit" value="Ghi Nhận">
-                            <button type="button" class="btn btn-warning btn-spacing" onclick="lamMoiForm()">Làm mới</button>
-                        </div>
-                    </div>
-                    <script>
-                        const doi1Select = document.getElementById('doi_1');
-                        const doi2Select = document.getElementById('doi_2');
-                        const sanInput = document.getElementById('san');
-                        const ngayInput = document.getElementById('ngay');
-                        const gioInput = document.getElementById('gio');
-                        
-                        var initialOptions = {
-                            doi_1: document.getElementById('doi_1').innerHTML,
-                            doi_2: document.getElementById('doi_2').innerHTML
-                        };
-                        doi1Select.addEventListener('change', () => {
-                            const doi1Id = doi1Select.value;
-                            const doi2Id = doi2Select.value;
-                            if (!doi1Id) {
-                                // Nếu doi_1 chọn về mặc định
-                                document.getElementById('doi_2').innerHTML = initialOptions.doi_2;
-                                document.getElementById('doi_2').value = doi2Id;
-                            } else
-                            if (doi2Id) {
-                                // Nếu doi_2 đã được chọn, hiển thị ngày và giờ
-                                fetch(`/lay-tran-dau/?doi_1=${doi1Id}&doi_2=${doi2Id}`)
-                                    .then(response => response.json())
-                                    .then(data => updateTranDauInfo(data));
-                            } else {
-                                // Nếu doi_2 chưa được chọn, cập nhật danh sách đội 2
-                                fetch(`/lay-tran-dau/?doi_1=${doi1Id}`)
-                                    .then(response => response.json())
-                                    .then(data => populateDoi2Options(data));
-                            }
-                        });
-                    
-                        doi2Select.addEventListener('change', () => {
-                            const doi1Id = doi1Select.value;
-                            const doi2Id = doi2Select.value;
-                            if (!doi2Id) {
-                                // Nếu doi_2 chọn về mặc định
-                                document.getElementById('doi_1').innerHTML = initialOptions.doi_1;
-                                document.getElementById('doi_1').value = doi1Id;
-                            } else
-                            if (doi1Id) {
-                                // Nếu doi_1 đã được chọn, hiển thị ngày và giờ
-                                fetch(`/lay-tran-dau/?doi_1=${doi1Id}&doi_2=${doi2Id}`)
-                                    .then(response => response.json())
-                                    .then(data => updateTranDauInfo(data));
-                            } else {
-                                // Nếu doi_1 chưa được chọn, cập nhật danh sách đội 1
-                                fetch(`/lay-tran-dau/?doi_2=${doi2Id}`)
-                                    .then(response => response.json())
-                                    .then(data => populateDoi1Options(data));
-                            }
-                        });
-                    
-                        function populateDoi2Options(data) {
-                            let options = '<option value="">Chọn đội 2</option>';
-                            data.forEach(tranDau => {
-                                options += `<option value="${tranDau.doi_khach_id}">${tranDau.doi_khach__ten_doi_bong}</option>`; // Sửa dòng này
-                            });
-                            doi2Select.innerHTML = options;
-                        }
-                        
-                        function populateDoi1Options(data) {
-                            let options = '<option value="">Chọn đội 1</option>';
-                            data.forEach(tranDau => {
-                                options += `<option value="${tranDau.doi_nha_id}">${tranDau.doi_nha__ten_doi_bong}</option>`; // Sửa dòng này
-                            });
-                            doi1Select.innerHTML = options;
-                        }
-                    
-                        function updateTranDauInfo(data) {
-                            if (data.length > 0) {
-                                const tranDau = data[0];
-                                sanInput.value = tranDau.san_dau;
-                                ngayInput.value = tranDau.ngay_thi_dau;
-                                gioInput.value = tranDau.gio_thi_dau;
-                            } else {
-                                sanInput.value = '';
-                                ngayInput.value = '';
-                                gioInput.value = '';
-                            }
-                        }
-                        function lamMoiForm() {
-                            // Reset các trường select
-                            document.getElementById('doi_1').selectedIndex = 0;
-                            document.getElementById('doi_2').selectedIndex = 0;
-                            document.getElementById('doi_1').innerHTML = initialOptions.doi_1;
-                            document.getElementById('doi_2').innerHTML = initialOptions.doi_2;
-                            // Reset các trường input
-                            document.getElementById('ty_so').value = '';
-                            document.getElementById('san').value = '';
-                            document.getElementById('ngay').value = '';
-                            document.getElementById('gio').value = '';
-
-                            // Xóa danh sách cầu thủ ghi bàn
-                            document.getElementById('danh-sach-cau-thu').innerHTML = '';
-
-                            // Reset số bàn thắng về 0
-                            document.getElementById('so_ban_thang').value = '0';
-                        }
-                    </script>
-                </form>
-                <style>
-                    
-                    #ghi-nhan-ket-qua-form input, 
-                    #ghi-nhan-ket-qua-form select {
-                        text-align: center;
-                    }
-                    .btn-spacing {
-                        margin-right: 50px; 
-                    }
-
-
-                </style>
-                
             </div>
-        </center>
-    </div>
+            </nav>
 
-    <script>
-        let soCauThu = 0;
-        let danhSachCauThu = [];
+        <!-- Main Body -->
+        <div class="row" style="width: 100%">
+            <center>
+                <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                    <h1 class="lg:text-3xl text-xl font-semibold  mb-6"> GHI NHẬN KẾT QUẢ TRẬN ĐẤU </h1>
 
-        function themCauThu() {
-            soCauThu++;
-            const cauThuMoi = {
-                cau_thu: '',
-                doi_ghi_ban: '',
-                loai_ban_thang: 'THUONG',
-                thoi_diem: ''
-            };
-            danhSachCauThu.push(cauThuMoi);
-            hienThiDanhSachCauThu();
-        }
+                    <div>
+                        <style>
+                            .thong-bao-thanh-cong {
+                                color: green;
+                            }
+                            .thong-bao-loi {
+                                color: red;
+                            }
+                        </style>
+                        {% for message in messages %}
+                            <h5 class="{% if message.tags == 'success' %}thong-bao-thanh-cong{% else %}thong-bao-loi{% endif %}">
+                                {{ message }}
+                            </h5>
+                        {% endfor %}
+                    </div>
+                    
 
-        function xoaCauThu(stt) {
-            danhSachCauThu.splice(stt - 1, 1);
-            soCauThu--;
-            hienThiDanhSachCauThu();
-        }
-
-        function capNhatCauThu(stt, giaTri, truong) {
-            danhSachCauThu[stt - 1][truong] = giaTri;
-            if (truong === 'cau_thu') {
-                // Cập nhật số bàn thắng cho cầu thủ trong danh sách
-                capNhatSoBanThang(stt, giaTri);
-            }
-            hienThiDanhSachCauThu();
-        }
-        
-        function capNhatSoBanThang(stt, maCauThu) {
-            danhSachCauThu.forEach((cauThu) => {
-                if (cauThu.cau_thu === maCauThu) {
-                    cauThu.so_ban_thang++;
-                }
-            });
-        }
-
-        function hienThiDanhSachCauThu() {
-            let html = '';
-            danhSachCauThu.forEach((cauThu, index) => {
-                html += `
-                    <div class="cau-thu-item mb-3" id="cau-thu-${index + 1}">
-                        <h4>Cầu Thủ ${index + 1}</h4>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="cau_thu_${index + 1}" class="form-label">Cầu Thủ:</label>
-                                <select class="form-select" id="cau_thu_${index + 1}" name="cau_thu_${index + 1}" onchange="capNhatCauThu(${index + 1}, this.value, 'cau_thu')" required>
-                                    <option value="">Chọn Cầu Thủ</option>
-                                    {% for doi in doi_bongs %}
-                                        <optgroup label="Đội {{ doi.ten_doi_bong }}">
-                                            {% for cau_thu in doi.cauthu_set.all %}
-                                                <option value="{{ cau_thu.ma_cau_thu }}" ${cauThu.cau_thu === '{{ cau_thu.ma_cau_thu }}' ? 'selected' : ''}>{{ cau_thu.ten_cau_thu }}</option>
-                                            {% endfor %}
-                                        </optgroup>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="doi_ghi_ban_${index + 1}" class="form-label">Đội Ghi Bàn:</label>
-                                <select class="form-select" id="doi_ghi_ban_${index + 1}" name="doi_ghi_ban_${index + 1}" onchange="capNhatCauThu(${index + 1}, this.value, 'doi_ghi_ban')" required>
-                                    <option value="">Chọn đội ghi bàn</option>
-                                    {% for doi in doi_bongs %}
-                                        <option value="{{ doi.ma_doi_bong }}" ${cauThu.doi_ghi_ban === '{{ doi.ma_doi_bong }}' ? 'selected' : ''}>{{ doi.ten_doi_bong }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="loai_ban_thang_${index + 1}" class="form-label">Loại:</label>
-                                <select class="form-select" id="loai_ban_thang_${index + 1}" name="loai_ban_thang_${index + 1}" onchange="capNhatCauThu(${index + 1}, this.value, 'loai_ban_thang')" required>
-                                    <option value="THUONG" ${cauThu.loai_ban_thang === 'THUONG' ? 'selected' : ''}>Thường</option>
-                                    <option value="PHAT_DEN" ${cauThu.loai_ban_thang === 'PHAT_DEN' ? 'selected' : ''}>Penalty</option>
-                                    <option value="TU_CUOI" ${cauThu.loai_ban_thang === 'TU_CUOI' ? 'selected' : ''}>Phản lưới nhà</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="thoi_diem_${index + 1}" class="form-label">Thời Điểm:</label>
-                                <input type="number" class="form-control" id="thoi_diem_${index + 1}" name="thoi_diem_${index + 1}" min="0" max="96" value="${cauThu.thoi_diem}" onchange="capNhatCauThu(${index + 1}, this.value, 'thoi_diem')" required>
-                            </div>
-                            <div class="col-md-1 d-flex align-items-end">
-                                <button type="button" class="btn btn-danger" onclick="xoaCauThu(${index + 1})">Xóa</button>
+                    <form action="" method="POST" id="ghi-nhan-ket-qua-form">
+                        {% csrf_token %}
+                        <div class="col-lg-8">
+                            <div class="box-element" id="form-wrapper">
+                                <div class="form-field mb-3">
+                                    <label for="doi_1" class="form-label">Đội 1:</label>
+                                    <select class="form-select" id="doi_1" name="doi_1" required>
+                                        <option value="">Chọn đội 1</option>
+                                        {% for doi in doi_bongs %}
+                                            <option value="{{ doi.ma_doi_bong }}">{{ doi.ten_doi_bong }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                    
+                                <div class="form-field mb-3">
+                                    <label for="doi_2" class="form-label">Đội 2:</label>
+                                    <select class="form-select" id="doi_2" name="doi_2" required>
+                                        <option value="">Chọn đội 2</option>
+                                        {% for doi in doi_bongs %}
+                                            <option value="{{ doi.ma_doi_bong }}">{{ doi.ten_doi_bong }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                    
+                                <div class="form-field mb-3">
+                                    <label for="ty_so" class="form-label">Tỷ số:</label>
+                                    <input type="text" class="form-control" id="ty_so" name="ty_so" placeholder="0:0" required>
+                                </div>
+                    
+                                <div class="form-field mb-3">
+                                    <label for="san" class="form-label">Sân:</label>
+                                    <input type="text" class="form-control" id="san" name="san" placeholder="Jerusalem">
+                                </div>
+                    
+                                <div class="form-field mb-3">
+                                    <label for="ngay" class="form-label">Ngày:</label>
+                                    <input type="text" class="form-control" id="ngay" name="ngay" placeholder="YYYY-MM-DD">
+                                </div>
+                                <div class="form-field mb-3">
+                                    <label for="gio" class="form-label">Giờ:</label>
+                                    <input type="time" class="form-control" id="gio" name="gio" > 
+                                </div>
+                    
+                                <div id="danh-sach-cau-thu">
+                                    <!-- Danh sách cầu thủ ghi bàn sẽ được thêm vào đây -->
+                                </div>
+                    
+                                <button type="button" class="btn btn-secondary btn-spacing" onclick="themCauThu()">Thêm Bàn Thắng</button>
+                                <input type="hidden" name="so_ban_thang" id="so_ban_thang" value="0">
+                                <input id="form-button" class="col-md-2 btn btn-success btn-block btn-spacing" type="submit" value="Ghi Nhận">
+                                <button type="button" class="col-md-2 btn btn-warning btn-spacing" onclick="lamMoiForm()">Làm mới</button>
                             </div>
                         </div>
-                    </div>
-                `;
+                        <script>
+                            const doi1Select = document.getElementById('doi_1');
+                            const doi2Select = document.getElementById('doi_2');
+                            const sanInput = document.getElementById('san');
+                            const ngayInput = document.getElementById('ngay');
+                            const gioInput = document.getElementById('gio');
+                            
+                            var initialOptions = {
+                                doi_1: document.getElementById('doi_1').innerHTML,
+                                doi_2: document.getElementById('doi_2').innerHTML
+                            };
+                            doi1Select.addEventListener('change', () => {
+                                const doi1Id = doi1Select.value;
+                                const doi2Id = doi2Select.value;
+                                if (!doi1Id) {
+                                    // Nếu doi_1 chọn về mặc định
+                                    document.getElementById('doi_2').innerHTML = initialOptions.doi_2;
+                                    document.getElementById('doi_2').value = doi2Id;
+                                } else
+                                if (doi2Id) {
+                                    // Nếu doi_2 đã được chọn, hiển thị ngày và giờ
+                                    fetch(`/lay-tran-dau/?doi_1=${doi1Id}&doi_2=${doi2Id}`)
+                                        .then(response => response.json())
+                                        .then(data => updateTranDauInfo(data));
+                                } else {
+                                    // Nếu doi_2 chưa được chọn, cập nhật danh sách đội 2
+                                    fetch(`/lay-tran-dau/?doi_1=${doi1Id}`)
+                                        .then(response => response.json())
+                                        .then(data => populateDoi2Options(data));
+                                }
+                            });
+                        
+                            doi2Select.addEventListener('change', () => {
+                                const doi1Id = doi1Select.value;
+                                const doi2Id = doi2Select.value;
+                                if (!doi2Id) {
+                                    // Nếu doi_2 chọn về mặc định
+                                    document.getElementById('doi_1').innerHTML = initialOptions.doi_1;
+                                    document.getElementById('doi_1').value = doi1Id;
+                                } else
+                                if (doi1Id) {
+                                    // Nếu doi_1 đã được chọn, hiển thị ngày và giờ
+                                    fetch(`/lay-tran-dau/?doi_1=${doi1Id}&doi_2=${doi2Id}`)
+                                        .then(response => response.json())
+                                        .then(data => updateTranDauInfo(data));
+                                } else {
+                                    // Nếu doi_1 chưa được chọn, cập nhật danh sách đội 1
+                                    fetch(`/lay-tran-dau/?doi_2=${doi2Id}`)
+                                        .then(response => response.json())
+                                        .then(data => populateDoi1Options(data));
+                                }
+                            });
+                        
+                            function populateDoi2Options(data) {
+                                let options = '<option value="">Chọn đội 2</option>';
+                                data.forEach(tranDau => {
+                                    options += `<option value="${tranDau.doi_khach_id}">${tranDau.doi_khach__ten_doi_bong}</option>`; // Sửa dòng này
+                                });
+                                doi2Select.innerHTML = options;
+                            }
+                            
+                            function populateDoi1Options(data) {
+                                let options = '<option value="">Chọn đội 1</option>';
+                                data.forEach(tranDau => {
+                                    options += `<option value="${tranDau.doi_nha_id}">${tranDau.doi_nha__ten_doi_bong}</option>`; // Sửa dòng này
+                                });
+                                doi1Select.innerHTML = options;
+                            }
+                        
+                            function updateTranDauInfo(data) {
+                                if (data.length > 0) {
+                                    const tranDau = data[0];
+                                    sanInput.value = tranDau.san_dau;
+                                    ngayInput.value = tranDau.ngay_thi_dau;
+                                    gioInput.value = tranDau.gio_thi_dau;
+                                } else {
+                                    sanInput.value = '';
+                                    ngayInput.value = '';
+                                    gioInput.value = '';
+                                }
+                            }
+                            function lamMoiForm() {
+                                // Reset các trường select
+                                document.getElementById('doi_1').selectedIndex = 0;
+                                document.getElementById('doi_2').selectedIndex = 0;
+                                document.getElementById('doi_1').innerHTML = initialOptions.doi_1;
+                                document.getElementById('doi_2').innerHTML = initialOptions.doi_2;
+                                // Reset các trường input
+                                document.getElementById('ty_so').value = '';
+                                document.getElementById('san').value = '';
+                                document.getElementById('ngay').value = '';
+                                document.getElementById('gio').value = '';
+
+                                // Xóa danh sách cầu thủ ghi bàn
+                                document.getElementById('danh-sach-cau-thu').innerHTML = '';
+                                document.getElementById('ghi-nhan-ket-qua-form').elements['so_ban_thang'].value = 0;
+                                danhSachCauThu = [];
+                                soCauThu = 0;
+                                document.getElementById('so_ban_thang').value = '0';
+                            }
+                        </script>
+                    </form>
+                    <style>
+                        
+                        #ghi-nhan-ket-qua-form input, 
+                        #ghi-nhan-ket-qua-form select {
+                            text-align: center;
+                        }
+                        .btn-spacing {
+                            margin-right: 50px; 
+                        }
+
+
+                    </style>
+                    
+                </div>
+            </center>
+        </div>
+
+        <script>
+            let soCauThu = 0;
+            let danhSachCauThu = [];
+
+            function themCauThu() {
+                soCauThu++;
+                const cauThuMoi = {
+                    cau_thu: '',
+                    doi_ghi_ban: '',
+                    loai_ban_thang: loaiBanThangGlobal[0],
+                    thoi_diem: ''
+                };
+                danhSachCauThu.push(cauThuMoi);
+                hienThiDanhSachCauThu();
+            }
+
+            function xoaCauThu(stt) {
+                danhSachCauThu.splice(stt - 1, 1);
+                soCauThu--;
+                hienThiDanhSachCauThu();
+            }
+
+            function capNhatCauThu(stt, giaTri, truong) {
+                console.log(giaTri)
+                danhSachCauThu[stt - 1][truong] = giaTri;
+                if (truong === 'cau_thu') {
+                    // Cập nhật số bàn thắng cho cầu thủ trong danh sách
+                    capNhatSoBanThang(stt, giaTri);
+                }
+                hienThiDanhSachCauThu();
+            }
+            
+            function capNhatSoBanThang(stt, maCauThu) {
+                danhSachCauThu.forEach((cauThu) => {
+                    if (cauThu.cau_thu === maCauThu) {
+                        cauThu.so_ban_thang++;
+                    }
+                });
+            }
+
+            function hienThiDanhSachCauThu() {
+                let html = '';
+                danhSachCauThu.forEach((cauThu, index) => {
+                    html += `
+                        <div class="cau-thu-item mb-3" id="cau-thu-${index + 1}">
+                            <h4>Cầu Thủ ${index + 1}</h4>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="cau_thu_${index + 1}" class="form-label">Cầu Thủ:</label>
+                                    <select class="form-select" id="cau_thu_${index + 1}" name="cau_thu_${index + 1}" onchange="capNhatCauThu(${index + 1}, this.value, 'cau_thu')" required>
+                                        <option value="">Chọn Cầu Thủ</option>
+                                        {% for doi in doi_bongs %}
+                                            <optgroup label="Đội {{ doi.ten_doi_bong }}">
+                                                {% for cau_thu in doi.cauthu_set.all %}
+                                                    <option value="{{ cau_thu.ma_cau_thu }}" ${cauThu.cau_thu === '{{ cau_thu.ma_cau_thu }}' ? 'selected' : ''}>{{ cau_thu.ten_cau_thu }}</option>
+                                                {% endfor %}
+                                            </optgroup>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="doi_ghi_ban_${index + 1}" class="form-label">Đội Ghi Bàn:</label>
+                                    <select class="form-select" id="doi_ghi_ban_${index + 1}" name="doi_ghi_ban_${index + 1}" onchange="capNhatCauThu(${index + 1}, this.value, 'doi_ghi_ban')" required>
+                                        <option value="">Chọn đội ghi bàn</option>
+                                        {% for doi in doi_bongs %}
+                                            <option value="{{ doi.ma_doi_bong }}" ${cauThu.doi_ghi_ban === '{{ doi.ma_doi_bong }}' ? 'selected' : ''}>{{ doi.ten_doi_bong }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="loai_ban_thang_${index + 1}" class="form-label">Loại:</label>
+                                    <select class="form-select" id="loai_ban_thang_${index + 1}" name="loai_ban_thang_${index + 1}" onchange="capNhatCauThu(${index + 1}, this.value, 'loai_ban_thang')" required>
+                                        ${generateOptionsHtml(loaiBanThangGlobal, cauThu.loai_ban_thang)} 
+                                    </select>
+                                </div>
+                                <div class="col-md-2">  
+                                    <label for="thoi_diem_${index + 1}" class="form-label">Thời Điểm:</label>
+                                    <input type="number" class="form-control" id="thoi_diem_${index + 1}" name="thoi_diem_${index + 1}" min="0" value="${cauThu.thoi_diem}" onchange="capNhatCauThu(${index + 1}, this.value, 'thoi_diem')" required>
+                                </div>
+                                <div class="col-md-1 d-flex align-items-end">
+                                    <button type="button" class="btn btn-danger" onclick="xoaCauThu(${index + 1})">Xóa</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('danh-sach-cau-thu').innerHTML = html;
+                document.getElementById('ghi-nhan-ket-qua-form').elements['so_ban_thang'].value = soCauThu;
+            }
+            loaiBanThangGlobal = [];
+            document.addEventListener('DOMContentLoaded', function() {
+                fetch('/lay-loai-ban-thang/')
+                    .then(response => response.json())
+                    .then(data => {
+                        loaiBanThangGlobal = data; // Store the goal types globally
+                    });
             });
-            document.getElementById('danh-sach-cau-thu').innerHTML = html;
-            document.getElementById('ghi-nhan-ket-qua-form').elements['so_ban_thang'].value = soCauThu;
-        }
-    </script>
+            function generateOptionsHtml(optionsArray, defaultOption) {
+                return optionsArray.map(option => 
+                  `<option value="${option}" ${option === defaultOption ? 'selected' : ''}>${option}</option>`
+                ).join('');
+              }
+        </script>
 
-    <!-- Footer -->
-    <Footer class="container--fluid text-left fixed-bottom p-2 mt-5">
-        <strong>
-            Copyright ©
-        </strong>
-    </footer>
+        <!-- Footer -->
+        <Footer class="container--fluid text-left fixed-bottom p-2 mt-5">
+            <strong>
+                Copyright ©
+            </strong>
+        </footer>
 
-</body>
-</html>
+    </body>
+    </html>

@@ -1,5 +1,8 @@
-24 35
-11 12
+19 35
+1 20
 0 3
-3 2 1
-ban_thua_banthang_sotran
+96
+
+Thường
+Penalty
+Phản lưới nhà
