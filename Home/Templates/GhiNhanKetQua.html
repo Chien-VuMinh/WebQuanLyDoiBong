@@ -222,6 +222,7 @@
                                     fetch(`/lay-tran-dau/?doi_1=${doi1Id}&doi_2=${doi2Id}`)
                                         .then(response => response.json())
                                         .then(data => updateTranDauInfo(data));
+                                
                                 } else {
                                     // Nếu doi_1 chưa được chọn, cập nhật danh sách đội 1
                                     fetch(`/lay-tran-dau/?doi_2=${doi2Id}`)
@@ -295,47 +296,65 @@
                 </div>
             </center>
         </div>
-
         <script>
             let soCauThu = 0;
             let danhSachCauThu = [];
-
+            let doi1CauThus = {}; 
+            let doi2CauThus = {}; 
+        
+            document.getElementById('doi_1').addEventListener('change', function() {
+                capNhatDanhSachCauThu(this.value, 'doi_1');
+            });
+        
+            document.getElementById('doi_2').addEventListener('change', function() {
+                capNhatDanhSachCauThu(this.value, 'doi_2');
+            });
+        
+            function capNhatDanhSachCauThu(doiBongId, doiSo) {
+                if (doiBongId) {
+                    fetch(`/lay-cau-thu-theo-doi/?doi_bong_id=${doiBongId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (doiSo === 'doi_1') {
+                                doi1CauThus = data;
+                            } else {
+                                doi2CauThus = data;
+                            }
+                            hienThiDanhSachCauThu(); 
+                        });
+                } else {
+                    if (doiSo === 'doi_1') {
+                        doi1CauThus = {};
+                    } else {
+                        doi2CauThus = {};
+                    }
+                    hienThiDanhSachCauThu(); 
+                }
+            }
+        
             function themCauThu() {
                 soCauThu++;
                 const cauThuMoi = {
                     cau_thu: '',
-                    doi_ghi_ban: '',
+                    doi_ghi_ban: '', 
                     loai_ban_thang: loaiBanThangGlobal[0],
                     thoi_diem: ''
                 };
                 danhSachCauThu.push(cauThuMoi);
                 hienThiDanhSachCauThu();
             }
-
+        
             function xoaCauThu(stt) {
                 danhSachCauThu.splice(stt - 1, 1);
                 soCauThu--;
                 hienThiDanhSachCauThu();
             }
-
+        
             function capNhatCauThu(stt, giaTri, truong) {
-                console.log(giaTri)
                 danhSachCauThu[stt - 1][truong] = giaTri;
-                if (truong === 'cau_thu') {
-                    // Cập nhật số bàn thắng cho cầu thủ trong danh sách
-                    capNhatSoBanThang(stt, giaTri);
-                }
                 hienThiDanhSachCauThu();
             }
-            
-            function capNhatSoBanThang(stt, maCauThu) {
-                danhSachCauThu.forEach((cauThu) => {
-                    if (cauThu.cau_thu === maCauThu) {
-                        cauThu.so_ban_thang++;
-                    }
-                });
-            }
-
+        
             function hienThiDanhSachCauThu() {
                 let html = '';
                 danhSachCauThu.forEach((cauThu, index) => {
@@ -347,22 +366,20 @@
                                     <label for="cau_thu_${index + 1}" class="form-label">Cầu Thủ:</label>
                                     <select class="form-select" id="cau_thu_${index + 1}" name="cau_thu_${index + 1}" onchange="capNhatCauThu(${index + 1}, this.value, 'cau_thu')" required>
                                         <option value="">Chọn Cầu Thủ</option>
-                                        {% for doi in doi_bongs %}
-                                            <optgroup label="Đội {{ doi.ten_doi_bong }}">
-                                                {% for cau_thu in doi.cauthu_set.all %}
-                                                    <option value="{{ cau_thu.ma_cau_thu }}" ${cauThu.cau_thu === '{{ cau_thu.ma_cau_thu }}' ? 'selected' : ''}>{{ cau_thu.ten_cau_thu }}</option>
-                                                {% endfor %}
-                                            </optgroup>
-                                        {% endfor %}
+                                        <optgroup label="Đội 1">
+                                            ${generateCauThuOptions(doi1CauThus, cauThu.cau_thu)}
+                                        </optgroup>
+                                        <optgroup label="Đội 2">
+                                            ${generateCauThuOptions(doi2CauThus, cauThu.cau_thu)}
+                                        </optgroup>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="doi_ghi_ban_${index + 1}" class="form-label">Đội Ghi Bàn:</label>
                                     <select class="form-select" id="doi_ghi_ban_${index + 1}" name="doi_ghi_ban_${index + 1}" onchange="capNhatCauThu(${index + 1}, this.value, 'doi_ghi_ban')" required>
                                         <option value="">Chọn đội ghi bàn</option>
-                                        {% for doi in doi_bongs %}
-                                            <option value="{{ doi.ma_doi_bong }}" ${cauThu.doi_ghi_ban === '{{ doi.ma_doi_bong }}' ? 'selected' : ''}>{{ doi.ten_doi_bong }}</option>
-                                        {% endfor %}
+                                        <option value="${document.getElementById('doi_1').value}" ${cauThu.doi_ghi_ban === document.getElementById('doi_1').value ? 'selected' : ''}>${document.getElementById('doi_1').options[document.getElementById('doi_1').selectedIndex].text}</option>
+                                        <option value="${document.getElementById('doi_2').value}" ${cauThu.doi_ghi_ban === document.getElementById('doi_2').value ? 'selected' : ''}>${document.getElementById('doi_2').options[document.getElementById('doi_2').selectedIndex].text}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
@@ -385,6 +402,117 @@
                 document.getElementById('danh-sach-cau-thu').innerHTML = html;
                 document.getElementById('ghi-nhan-ket-qua-form').elements['so_ban_thang'].value = soCauThu;
             }
+        
+            function generateCauThuOptions(cauThus, selectedCauThu) {
+                let options = '';
+                for (const cauThuId in cauThus) {
+                    const cauThu = cauThus[cauThuId];
+                    options += `<option value="${cauThuId}" ${cauThuId === selectedCauThu ? 'selected' : ''}>${cauThu.ten_cau_thu}</option>`;
+                }
+                return options;
+            }
+            
+            function generateOptionsHtml(optionsArray, defaultOption) {
+                return optionsArray.map(option => 
+                  `<option value="${option}" ${option === defaultOption ? 'selected' : ''}>${option}</option>`
+                ).join('');
+            }
+        
+            var initialOptions = {
+                doi_1: document.getElementById('doi_1').innerHTML,
+                doi_2: document.getElementById('doi_2').innerHTML
+            };
+            document.getElementById('doi_1').addEventListener('change', () => {
+                const doi1Id = document.getElementById('doi_1').value;
+                const doi2Id = document.getElementById('doi_2').value;
+                if (!doi1Id) {
+                    // Nếu doi_1 chọn về mặc định
+                    document.getElementById('doi_2').innerHTML = initialOptions.doi_2;
+                    document.getElementById('doi_2').value = doi2Id;
+                } else
+                if (doi2Id) {
+                    // Nếu doi_2 đã được chọn, hiển thị ngày và giờ
+                    fetch(`/lay-tran-dau/?doi_1=${doi1Id}&doi_2=${doi2Id}`)
+                        .then(response => response.json())
+                        .then(data => updateTranDauInfo(data));
+                } else {
+                    // Nếu doi_2 chưa được chọn, cập nhật danh sách đội 2
+                    fetch(`/lay-tran-dau/?doi_1=${doi1Id}`)
+                        .then(response => response.json())
+                        .then(data => populateDoi2Options(data));
+                }
+            });
+        
+            document.getElementById('doi_2').addEventListener('change', () => {
+                const doi1Id = document.getElementById('doi_1').value;
+                const doi2Id = document.getElementById('doi_2').value;
+                if (!doi2Id) {
+                    // Nếu doi_2 chọn về mặc định
+                    document.getElementById('doi_1').innerHTML = initialOptions.doi_1;
+                    document.getElementById('doi_1').value = doi1Id;
+                } else
+                if (doi1Id) {
+                    // Nếu doi_1 đã được chọn, hiển thị ngày và giờ
+                    fetch(`/lay-tran-dau/?doi_1=${doi1Id}&doi_2=${doi2Id}`)
+                        .then(response => response.json())
+                        .then(data => updateTranDauInfo(data));
+                
+                } else {
+                    // Nếu doi_1 chưa được chọn, cập nhật danh sách đội 1
+                    fetch(`/lay-tran-dau/?doi_2=${doi2Id}`)
+                        .then(response => response.json())
+                        .then(data => populateDoi1Options(data));
+                }
+            });
+        
+            function populateDoi2Options(data) {
+                let options = '<option value="">Chọn đội 2</option>';
+                data.forEach(tranDau => {
+                    options += `<option value="${tranDau.doi_khach_id}">${tranDau.doi_khach__ten_doi_bong}</option>`; // Sửa dòng này
+                });
+                document.getElementById('doi_2').innerHTML = options;
+            }
+            
+            function populateDoi1Options(data) {
+                let options = '<option value="">Chọn đội 1</option>';
+                data.forEach(tranDau => {
+                    options += `<option value="${tranDau.doi_nha_id}">${tranDau.doi_nha__ten_doi_bong}</option>`; // Sửa dòng này
+                });
+                document.getElementById('doi_1').innerHTML = options;
+            }
+        
+            function updateTranDauInfo(data) {
+                if (data.length > 0) {
+                    const tranDau = data[0];
+                    document.getElementById('san').value = tranDau.san_dau;
+                    document.getElementById('ngay').value = tranDau.ngay_thi_dau;
+                    document.getElementById('gio').value = tranDau.gio_thi_dau;
+                } else {
+                    document.getElementById('san').value = '';
+                    document.getElementById('ngay').value = '';
+                    document.getElementById('gio').value = '';
+                }
+            }
+            function lamMoiForm() {
+                // Reset các trường select
+                document.getElementById('doi_1').selectedIndex = 0;
+                document.getElementById('doi_2').selectedIndex = 0;
+                document.getElementById('doi_1').innerHTML = initialOptions.doi_1;
+                document.getElementById('doi_2').innerHTML = initialOptions.doi_2;
+                // Reset các trường input
+                document.getElementById('ty_so').value = '';
+                document.getElementById('san').value = '';
+                document.getElementById('ngay').value = '';
+                document.getElementById('gio').value = '';
+        
+                // Xóa danh sách cầu thủ ghi bàn
+                document.getElementById('danh-sach-cau-thu').innerHTML = '';
+                document.getElementById('ghi-nhan-ket-qua-form').elements['so_ban_thang'].value = 0;
+                danhSachCauThu = [];
+                soCauThu = 0;
+                document.getElementById('so_ban_thang').value = '0';
+            }
+        
             loaiBanThangGlobal = [];
             document.addEventListener('DOMContentLoaded', function() {
                 fetch('/lay-loai-ban-thang/')
@@ -393,11 +521,6 @@
                         loaiBanThangGlobal = data; // Store the goal types globally
                     });
             });
-            function generateOptionsHtml(optionsArray, defaultOption) {
-                return optionsArray.map(option => 
-                  `<option value="${option}" ${option === defaultOption ? 'selected' : ''}>${option}</option>`
-                ).join('');
-              }
         </script>
 
         <!-- Footer -->

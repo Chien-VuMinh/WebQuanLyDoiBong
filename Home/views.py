@@ -15,8 +15,8 @@ with open("regulation.txt", "r", encoding="utf-8") as f:
     AGE                         = list(map(int, lines[0].split()))
     SO_LUONG_CAU_THU            = list(map(int, lines[1].split()))
     SO_LUONG_CAU_THU_NGOAI_QUOC = list(map(int, lines[2].split()))
-    THOI_DIEM_GHI_BAN_TOI_DA = lines[3]
-    LOAIBANTHANG = [line.strip() for line in lines[4:]]
+    THOI_DIEM_GHI_BAN_TOI_DA = lines[5]
+    LOAIBANTHANG = [line.strip() for line in lines[6:]]
     f.close()
 DOI = None
 NGOAIBINH  = NOIBINH = 0
@@ -154,14 +154,18 @@ def DangKiCauThu(request):
     else:
         messages.info(request, 'Nhập thông tin cầu thủ thứ 1')
         return render(request, 'DangKiCauThu.html')
-    
+DIEM_THANG = 3
+DIEM_HOA = 2
+DIEM_THUA = 1
+XEP_HANG = 'macdinh'
+
 
 def ThongBao(request):
     return render(request, 'ThongBao.html')
 
 
 def ThayDoiQuyDinh(request):
-    global SO_LUONG_CAU_THU_NGOAI_QUOC, SO_LUONG_CAU_THU, AGE, LOAIBANTHANG, THOI_DIEM_GHI_BAN_TOI_DA
+    global SO_LUONG_CAU_THU_NGOAI_QUOC, SO_LUONG_CAU_THU, AGE, LOAIBANTHANG, THOI_DIEM_GHI_BAN_TOI_DA, DIEM_THANG, DIEM_HOA, DIEM_THUA, XEP_HANG
 
     if request.method == "POST":
         QuyDinh = request.POST['QuyDinh']
@@ -183,7 +187,26 @@ def ThayDoiQuyDinh(request):
         elif QuyDinh == 'thaydoisl':
             SO_LUONG_CAU_THU = [int(request.POST['sltoithieu']), int(request.POST['sltoida'])]
             return render(request, 'ThayDoiQuyDinh.html')
+        
+        elif QuyDinh == 'diemso':
+            return render(request, 'ThayDoiQuyDinh.html', {'diemso': ['diemso'], 'messages': ['Nhập số điểm cho Thắng, Hòa, Thua']})
+        elif QuyDinh == 'thaydoidiemso':
+            DIEM_THANG = int(request.POST['diem_thang'])
+            DIEM_HOA = int(request.POST['diem_hoa'])
+            DIEM_THUA = int(request.POST['diem_thua'])
 
+
+            # Kiểm tra nếu vi phạm quy định Thắng > Hòa > Thua
+            if not (DIEM_THANG > DIEM_HOA > DIEM_THUA):
+                return render(request, 'ThayDoiQuyDinh.html', {'error': 'Quy định vi phạm: Điểm Thắng phải lớn hơn Hòa, và Hòa phải lớn hơn Thua.'})
+            return render(request, 'ThayDoiQuyDinh.html')
+
+        elif QuyDinh == 'xephang':
+            return render(request, 'ThayDoiQuyDinh.html', {'xephang': ['xephang'], 'messages': ['Chọn thứ tự ưu tiên cho xếp hạng']})
+        elif QuyDinh == 'thaydoixh':
+            XEP_HANG = str(request.POST['xep_hang'])
+
+            return render(request, 'ThayDoiQuyDinh.html')
         elif QuyDinh == 'soluongbanthang':
             return render(request, 'ThayDoiQuyDinh.html', {'soluongbanthang': ['soluongbanthang'], 'messages': ['Nhập danh sách loại bàn thắng', 'Cách nhau bởi dấu phẩy'], 'LOAIBANTHANG': LOAIBANTHANG})
         elif QuyDinh == 'thaydoisoluongbanthang':
@@ -193,15 +216,21 @@ def ThayDoiQuyDinh(request):
         
         elif QuyDinh == 'ngoaiquoc':
             return render(request, 'ThayDoiQuyDinh.html', {'ngoaiquoc' : ['ngoaiquoc'], 'messages' : ['Nhập số lượng cầu thủ ngoại quốc mới']})
-        elif QuyDinh == 'thaydoingoaiquoc':
+        elif QuyDinh == 'thaydoingoaiquoc': 
             SO_LUONG_CAU_THU_NGOAI_QUOC[1] = int(request.POST['ngoaiquoc'])
             return render(request, 'ThayDoiQuyDinh.html')
         
         elif QuyDinh == 'luu':
-            f = open("regulation.txt", "w", encoding="utf-8"    )
+            if MuaGiai.objects.exists():
+            # Nếu có mùa giải, không cho phép thay đổi quy định
+                return render(request, 'ThayDoiQuyDinh.html', {'error': 'Không thể thay đổi quy định khi mùa giải đã bắt đầu.'})
+
+            f = open("regulation.txt", "w", encoding="utf-8")
             f.write(str(AGE[0]) + ' ' + str(AGE[1]) + '\n')
             f.write(str(SO_LUONG_CAU_THU[0]) + ' ' + str(SO_LUONG_CAU_THU[1]) + '\n')
             f.write(str(SO_LUONG_CAU_THU_NGOAI_QUOC[0]) + ' ' + str(SO_LUONG_CAU_THU_NGOAI_QUOC[1]) + '\n')
+            f.write(str(DIEM_THANG)+ ' '+ str(DIEM_HOA)+ ' '+ str(DIEM_THUA) + '\n')
+            f.write(str(XEP_HANG)+'\n')
             f.write(str(THOI_DIEM_GHI_BAN_TOI_DA) + '\n')
             for loai in LOAIBANTHANG:
                 f.write(loai + '\n')
@@ -296,7 +325,6 @@ def ThemTranDau(request):
 
         current_time = datetime.now()
         current_time = timezone.make_aware(current_time, timezone.get_current_timezone())
-        print(current_time)
 
         # 3. Check if the match date is within the season's start and end dates
         ngay_thi_dau = datetime.strptime(ngay_thi_dau, '%Y-%m-%d').date()
@@ -371,13 +399,25 @@ def GhiNhanKetQua(request):
             if thoi_diem > int(THOI_DIEM_GHI_BAN_TOI_DA):
                 messages.error(request, f"Thời điểm ghi bàn số {i} không được vượt quá {THOI_DIEM_GHI_BAN_TOI_DA} phút.")
                 return redirect('GhiNhanKetQua')
+             # Kiểm tra cầu thủ có thuộc đội bóng ghi bàn hoặc đội bóng bị ghi bàn không
+            try:
+                cau_thu = CauThu.objects.get(pk=cau_thu_id)
+                doi_ghi_ban = Doi.objects.get(ma_doi_bong=doi_ghi_ban_ma)
 
+                # Kiểm tra cầu thủ có thuộc đội bóng ghi bàn
+                if cau_thu.doi != doi_ghi_ban:
+                    messages.error(request, f"Cầu thủ số ghi bàn {i} không thuộc đội bóng của cầu thủ")
+                    return redirect('GhiNhanKetQua')
+            except (CauThu.DoesNotExist, Doi.DoesNotExist):
+                messages.error(request, f"Dữ liệu cầu thủ số {i} không hợp lệ.")
+                return redirect('GhiNhanKetQua')
             try:
                 cau_thu = CauThu.objects.get(pk=cau_thu_id)
                 doi_ghi_ban = Doi.objects.get(ma_doi_bong=doi_ghi_ban_ma)
                 # Cập nhật số bàn thắng cho cầu thủ
                 cau_thu.so_ban_thang += 1
                 cau_thu.save()
+
             except (CauThu.DoesNotExist, Doi.DoesNotExist):
                 messages.error(request, f"Dữ liệu cầu thủ số {i} không hợp lệ.")
                 return redirect('GhiNhanKetQua')
@@ -409,6 +449,10 @@ def GhiNhanKetQua(request):
     return render(request, 'GhiNhanKetQua.html', context)
 def BangXepHang(request):
     # Khởi tạo bảng xếp hạng cho các đội
+    with open("regulation.txt", "r", encoding="utf-8") as f:
+        lines = f.readlines()
+        diem_thang, diem_hoa, diem_thua = map(int, lines[3].strip().split())
+        xep_hang = lines[4].strip()  # Đọc quy tắc xếp hạng từ dòng thứ 5 của file
     bang_xep_hang = {}
     doi_bong_list = Doi.objects.all()
 
@@ -424,7 +468,6 @@ def BangXepHang(request):
             'ban_thua': 0,
             'diem': 0
         }
-        print(bang_xep_hang[doi.ma_doi_bong])
 
     # Lấy kết quả các trận đấu
     ket_qua_list = KetQua.objects.all()
@@ -448,22 +491,33 @@ def BangXepHang(request):
         # Xác định kết quả trận đấu và cập nhật điểm số
         if ty_so_1 > ty_so_2:
             bang_xep_hang[doi_1.ma_doi_bong]['thang'] += 1
-            bang_xep_hang[doi_1.ma_doi_bong]['diem'] += 3
+            bang_xep_hang[doi_1.ma_doi_bong]['diem'] += diem_thang
             bang_xep_hang[doi_2.ma_doi_bong]['thua'] += 1
+            bang_xep_hang[doi_2.ma_doi_bong]['diem'] += diem_thua
         elif ty_so_1 < ty_so_2:
             bang_xep_hang[doi_2.ma_doi_bong]['thang'] += 1
-            bang_xep_hang[doi_2.ma_doi_bong]['diem'] += 3
+            bang_xep_hang[doi_2.ma_doi_bong]['diem'] += diem_thang
             bang_xep_hang[doi_1.ma_doi_bong]['thua'] += 1
+            bang_xep_hang[doi_1.ma_doi_bong]['diem'] += diem_thua
         else:
             bang_xep_hang[doi_1.ma_doi_bong]['hoa'] += 1
-            bang_xep_hang[doi_1.ma_doi_bong]['diem'] += 1
+            bang_xep_hang[doi_1.ma_doi_bong]['diem'] += diem_hoa
             bang_xep_hang[doi_2.ma_doi_bong]['hoa'] += 1
-            bang_xep_hang[doi_2.ma_doi_bong]['diem'] += 1
-
-    # Chuyển đổi sang danh sách và sắp xếp theo điểm số và hiệu số bàn thắng
-    bang_xep_hang_list = sorted(bang_xep_hang.values(), key=lambda x: (-x['diem'], x['ban_thang'] - x['ban_thua']))
+            bang_xep_hang[doi_2.ma_doi_bong]['diem'] += diem_hoa
+    # Chuyển đổi sang danh sách
+    bang_xep_hang_list = list(bang_xep_hang.values())
 
     # Lấy danh sách 5 cầu thủ ghi bàn nhiều nhất
+    # Sắp xếp danh sách theo quy tắc ưu tiên
+    if xep_hang == 'ban_thang_sotran_banthua':
+        bang_xep_hang_list.sort(key=lambda x: (-x['diem'],-x['ban_thang'], -x['tran'], x['ban_thua']))
+    elif xep_hang == 'ban_thua_banthang_sotran':
+        bang_xep_hang_list.sort(key=lambda x: (-x['diem'],x['ban_thua'], -x['ban_thang'], -x['tran']))
+    elif xep_hang == 'sotran_banthang_banthua':
+        bang_xep_hang_list.sort(key=lambda x: (-x['diem'],-x['tran'], -x['ban_thang'], x['ban_thua']))
+    elif xep_hang == 'macdinh':  # Mặc định là xếp theo điểm số
+        bang_xep_hang_list.sort(key=lambda x: (-x['diem'], -x['ban_thang'], x['ban_thua'],-x['tran']))
+
     top_scorers = CauThu.objects.order_by('-so_ban_thang')[:5]
 
     return render(request, 'BangXepHang.html', {
@@ -492,3 +546,8 @@ def lay_tran_dau(request):
     return JsonResponse(tran_dau_list, safe=False)
 def lay_loai_ban_thang(request):
     return JsonResponse(LOAIBANTHANG, safe=False)
+def lay_cau_thu_theo_doi(request):
+    doi_bong_id = request.GET.get('doi_bong_id')
+    cau_thus = CauThu.objects.filter(doi_id=doi_bong_id).values('ma_cau_thu', 'ten_cau_thu') 
+    cau_thu_dict = {str(cau_thu['ma_cau_thu']): cau_thu for cau_thu in cau_thus}
+    return JsonResponse(cau_thu_dict)
