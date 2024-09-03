@@ -1,5 +1,7 @@
 {% load static %}
 
+
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -33,73 +35,51 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        
-
-        
         <!-- Thanh Menu -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">
-              <img src=" {% static 'app/images/logo.jpg' %}" width = "70" height= "70" />
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                <!-- Home tag -->
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >
-                    Trang Chủ
-                  </a>
-                </li>
-
-            
-
-                <!-- Chuc Nang tag -->
-                <li class="nav-item dropdown">
-                  <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Chức Năng
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'TruyXuatCauThu' %}">Truy Xuất Cầu Thủ</a></li>
-                    <li><a class="dropdown-item" href="{% url 'TiepNhanHoSo' %}">Tiếp Nhận Hồ Sơ</a></li>
-                    <li><a class="dropdown-item" href="{% url 'LichThiDau' %}">Lịch Thi Đấu</a></li>
-                    <li><a class="dropdown-item" href="{% url 'GhiNhanKetQua' %}">Ghi Nhận Kết Quả</a></li>
-                    <li><a class="dropdown-item" href="{% url 'BangXepHang' %}">Bảng Xếp Hạng</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'ThayDoiQuyDinh' %}">Thay Đổi Quy Định</a></li>
-                  </ul>
-                </li>
-
-
-                <!-- About us tag -->
-                <li class="nav-item">
-                  <a class="nav-link active" href="https://www.facebook.com/chien.vuminh.75/">
-                    Liên Hệ
-                  </a>
-                </li>
-              </ul>
-
-
-
+            <div class="container-fluid">
+              <a class="navbar-brand" href="{% url 'home' %}">
+                <img src=" {% static 'app/images/logo.jpg' %}" width = "70" height= "70" />
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  
+                  <!-- Home tag -->
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >
+                      Trang Chủ
+                    </a>
+                  </li>
               
-            <ul class="navbar-nav  mb-2 mb-lg-0">
-
-              <li class="nav-item">
-                <a class="nav-link" href="admin">Admin</a>
-              </li>
-
-            </ul>
-
-             
+  
+                  <!-- Chuc Nang tag -->
+                  <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Chức Năng
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'TruyXuatCauThu' %}" >Truy Xuất Cầu Thủ</a></li>
+                      <li><a class="dropdown-item" href="">Tiếp Nhận Hồ Sơ</a></li>
+                      <li><a class="dropdown-item" href="#">Chuc Nang 3</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="">Thay Đổi Quy Định</a></li>
+                    </ul>
+                  </li>
+  
+  
+                  <!-- About us tag -->
+                  <li class="nav-item">
+                    <a class="nav-link active" href="https://www.facebook.com/chien.vuminh.75/">
+                      Liên Hệ
+                    </a>
+                  </li>
+                </ul>                 
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
 
 
 
@@ -114,6 +94,8 @@
                   <br>
                   <h1 class="lg:text-3xl text-xl font-semibold  mb-6"> THAY ĐỔI QUY ĐỊNH </h1>
                   <br>
+
+                  
   
                   <form action="" method="POST">
                       {% csrf_token %}
@@ -123,6 +105,14 @@
                       <br>
                       <div>
                           <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="soluong">THAY ĐỔI SỐ LƯỢNG CẦU THỦ</button>
+                      </div>
+                      <br>
+                      <div>
+                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="diemso">THAY ĐỔI ĐIỂM SỐ</button>
+                      </div>
+                      <br>
+                      <div>
+                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="xephang">THAY ĐỔI THỨ TỰ ƯU TIÊN XẾP HẠNG</button>
                       </div>
                       <br>
                       <div>
@@ -136,6 +126,11 @@
                   <br><br>
   
                   <div>
+                    {% if error %}
+                  <div style="color: red;">
+                    <strong>{{ error }}</strong>
+                  </div>
+                  {% endif %}
                       <!-- thay doi tuoi -->
                       {% if tuoi %}
                           {% for message in messages %}
@@ -207,6 +202,66 @@
                               </div>
                             </form>
                       {% endif %}
+
+                      <!-- thay doi diem so -->
+                      {% if diemso %}
+                      {% for message in messages %}
+                          <h5>{{message}}</h5>
+                      {% endfor %}
+                      <form action="" method="POST">
+                          {% csrf_token %}
+                          <div class="col-lg-6">
+                              <div class="box-element" id="form-wrapper">
+                                  <div class="form-field">
+                                      <input required class="form-control" type="number" name="diem_thang" placeholder="Điểm số cho 1 trận thắng">
+                                  </div>
+
+                                  <div class="form-field">
+                                      <input required class="form-control" type="number" name="diem_hoa" placeholder="Điểm số cho 1 trận hòa">
+                                  </div>
+
+                                  <div class="form-field">
+                                      <input required class="form-control" type="number" name="diem_thua" placeholder="Điểm số cho 1 trận thua">
+                                  </div>
+
+                                  <hr>
+                                  <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoidiemso">THAY ĐỔI</button>
+                              </div>
+                          </div>
+                      </form>
+                      {% endif %}
+
+                      <!-- thay doi thu tu uu tien -->
+                      {% if xephang %}
+                      <form action="" method="POST">
+                          {% csrf_token %}
+                          <div class="col-lg-6">
+                              <div class="box-element" id="form-wrapper">
+                                  <input type="hidden" name="QuyDinh" value="thaydoixh">
+                                  
+                                  <div class="form-field">
+                                      <label for="xep_hang">Ưu tiên xếp hạng:</label>
+                                      <select id="xep_hang" name="xep_hang" class="form-control" required>
+                                          <option value="ban_thang_sotran_banthua">Bàn thắng > Số trận > Bàn thua</option>
+                                          <option value="ban_thua_banthang_sotran">Bàn thua > Bàn thắng > Số trận</option>
+                                          <option value="sotran_banthang_banthua">Số trận > Bàn thắng > Bàn thua</option>
+                                      </select>
+                                  </div>
+                                  
+                                  <hr>
+                                  
+                                  <button class="btn btn-outline-success" type="submit">Lưu</button>
+                              </div>
+                          </div>
+                      </form>
+                      {% endif %}
+
+                      {% if success %}
+                      <div class="alert alert-success">
+                        <strong>{{ success }}</strong>
+                      </div>
+                    {% endif %}
+               
                   </div>
                   
                   
