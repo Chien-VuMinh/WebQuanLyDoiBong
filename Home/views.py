@@ -181,7 +181,7 @@ def ThayDoiQuyDinh(request):
         elif QuyDinh == 'ngoaiquoc':
             return render(request, 'ThayDoiQuyDinh.html', {'ngoaiquoc' : ['ngoaiquoc'], 'messages' : ['Nhập số lượng cầu thủ ngoại quốc mới']})
         elif QuyDinh == 'thaydoingoaiquoc':
-            SO_LUONG_CAU_THU_NGOAI_QUOC = int(request.POST['ngoaiquoc'])
+            SO_LUONG_CAU_THU_NGOAI_QUOC[1] = int(request.POST['ngoaiquoc'])
             return render(request, 'ThayDoiQuyDinh.html')
         
         elif QuyDinh == 'luu':
