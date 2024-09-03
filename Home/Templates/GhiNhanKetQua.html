@@ -131,7 +131,7 @@
                 
                             <div class="form-field mb-3">
                                 <label for="san" class="form-label">Sân:</label>
-                                <input type="text" class="form-control" id="san" name="san" placeholder="Jerusalem" required>
+                                <input type="text" class="form-control" id="san" name="san" placeholder="Jerusalem">
                             </div>
                 
                             <div class="form-field mb-3">
@@ -156,6 +156,7 @@
                     <script>
                         const doi1Select = document.getElementById('doi_1');
                         const doi2Select = document.getElementById('doi_2');
+                        const sanInput = document.getElementById('san');
                         const ngayInput = document.getElementById('ngay');
                         const gioInput = document.getElementById('gio');
                         
@@ -224,9 +225,11 @@
                         function updateTranDauInfo(data) {
                             if (data.length > 0) {
                                 const tranDau = data[0];
+                                sanInput.value = tranDau.san_dau;
                                 ngayInput.value = tranDau.ngay_thi_dau;
                                 gioInput.value = tranDau.gio_thi_dau;
                             } else {
+                                sanInput.value = '';
                                 ngayInput.value = '';
                                 gioInput.value = '';
                             }
