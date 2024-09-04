@@ -150,25 +150,39 @@
         </footer>
 
           <!-- Nội Dung Chi Tiết Đội Bóng -->
-    <main class="container mt-4">
-      <h2>Chi Tiết Đội Bóng</h2>
-      <div>
-          <h3>{{ doi_bong.ten_doi_bong }}</h3>
-          <p><strong>Mã Đội:</strong> {{ doi_bong.ma_doi_bong }}</p>
-          <p><strong>Sân Nhà:</strong> {{ doi_bong.san_nha }}</p>
-          <p><strong>Số Lượng Cầu Thủ:</strong> {{ doi_bong.so_luong_cau_thu }}</p>
-          <p><strong>Ngoại Quốc:</strong> {{ doi_bong.ngoai_quoc }}</p>
-          
-          <!-- Hiển thị cầu thủ của đội -->
-          <h4>Cầu Thủ:</h4>
-          <ul>
-              {% for cau_thu in doi_bong.cauthu_set.all %}
-                  <li>{{ cau_thu.ten_cau_thu }} ({{ cau_thu.ngay_sinh }})</li>
-              {% empty %}
-                  <li>Chưa có cầu thủ</li>
-              {% endfor %}
-          </ul>
-      </div>
+        <main class="container mt-4">
+          <h2>Chi Tiết Đội Bóng</h2>
+          <div>
+              <h3>{{ doi_bong.ten_doi_bong }}</h3>
+              <p><strong>Mã Đội:</strong> {{ doi_bong.ma_doi_bong }}</p>
+              <p><strong>Sân Nhà:</strong> {{ doi_bong.san_nha }}</p>
+              <p><strong>Số Lượng Cầu Thủ:</strong> {{ doi_bong.so_luong_cau_thu }}</p>
+              <p><strong>Ngoại Quốc:</strong> {{ doi_bong.ngoai_quoc }}</p>
+              
+              <h4>Danh Sách Cầu Thủ:</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Tên Cầu Thủ</th>
+                        <th scope="col">Loại Cầu Thủ</th>
+                        <th scope="col">Số Bàn Thắng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cau_thu in doi_bong.cauthu_set.all %}
+                    <tr>
+                        <td>{{ cau_thu.ten_cau_thu }}</td>
+                        <td>{{ cau_thu.loai_cau_thu }}</td> <!-- Loại cầu thủ: ngoại binh, nội binh -->
+                        <td>{{ cau_thu.so_ban_thang }}</td> <!-- Số bàn thắng -->
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">Chưa có cầu thủ</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+          </div>
   </main>
 </body>
 </html>
