@@ -15,7 +15,7 @@ with open("regulation.txt", "r", encoding="utf-8") as f:
     AGE                         = list(map(int, lines[0].split()))
     SO_LUONG_CAU_THU            = list(map(int, lines[1].split()))
     SO_LUONG_CAU_THU_NGOAI_QUOC = list(map(int, lines[2].split()))
-    THOI_DIEM_GHI_BAN_TOI_DA = lines[5]
+    THOI_DIEM_GHI_BAN_TOI_DA = lines[5].strip()
     LOAIBANTHANG = [line.strip() for line in lines[6:]]
     f.close()
 DOI = None
