@@ -1,311 +1,357 @@
 {% load static %}
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-        <!-- css -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link href="{%static 'app/css/style.css' %}" rel="stylesheet" />
-        <link href="{%static 'app/css/owl.carousel.min.css' %}" rel="stylesheet" />
-        <link href="{%static 'app/css/all.min.css' %}" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="{%static 'app/css/main.css' %}">
-        
-
-        <!-- js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-        <script src="{%static 'app/js/all.min.js' %}" /> </script>
-        <script src="{%static 'app/js/myscript.js' %}" /> </script>
-        <script src="{%static 'app/js/owl.carousel.min.js' %}" /> </script>
-
-        
-        <title> Quản Lý Giải Bóng Đá </title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        
-
-        
-        <!-- Thanh Menu -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container-fluid">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="{%static 'app/css/style.css' %}" rel="stylesheet" />
+    <link href="{%static 'app/css/owl.carousel.min.css' %}" rel="stylesheet" />
+    <link href="{%static 'app/css/all.min.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{%static 'app/css/main.css' %}">
+    <!-- js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="{%static 'app/js/all.min.js' %}" /> </script>
+    <script src="{%static 'app/js/myscript.js' %}" /> </script>
+    <script src="{%static 'app/js/owl.carousel.min.js' %}" /> </script>
+    <title> Quản Lý Giải Bóng Đá </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <!-- Thanh Menu -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">
-              <img src=" {% static 'app/images/logo.jpg' %}" width = "70" height= "70" />
+                <img src=" {% static 'app/images/logo.jpg' %}" width = "70" height= "70" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
-              <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                <!-- Home tag -->
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >
-                    Trang Chủ
-                  </a>
-                </li>
-
-            
-
-                <!-- Chuc Nang tag -->
-                <li class="nav-item dropdown">
-                  <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Chức Năng
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'TruyXuatCauThu' %}">Truy Xuất Cầu Thủ</a></li>
-                    <li><a class="dropdown-item" href="{% url 'TiepNhanHoSo' %}">Tiếp Nhận Hồ Sơ</a></li>
-                    <li><a class="dropdown-item" href="{% url 'LichThiDau' %}">Lịch Thi Đấu</a></li>
-                    <li><a class="dropdown-item" href="{% url 'GhiNhanKetQua' %}">Ghi Nhận Kết Quả</a></li>
-                    <li><a class="dropdown-item" href="{% url 'BangXepHang' %}">Bảng Xếp Hạng</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'ThayDoiQuyDinh' %}">Thay Đổi Quy Định</a></li>
-                  </ul>
-                </li>
-
-
-                <!-- About us tag -->
-                <li class="nav-item">
-                  <a class="nav-link active" href="https://www.facebook.com/chien.vuminh.75/">
-                    Liên Hệ
-                  </a>
-                </li>
-              </ul>
-
-
-
-              
-            <ul class="navbar-nav  mb-2 mb-lg-0">
-
-              <li class="nav-item">
-                <a class="nav-link" href="admin">Admin</a>
-              </li>
-
-            </ul>
-
-             
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Home tag -->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}" >
+                            Trang Chủ
+                        </a>
+                    </li>
+                    <!-- Chuc Nang tag -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Chức Năng
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'TruyXuatCauThu' %}">Truy Xuất Cầu Thủ</a></li>
+                            <li><a class="dropdown-item" href="{% url 'TiepNhanHoSo' %}">Tiếp Nhận Hồ Sơ</a></li>
+                            <li><a class="dropdown-item" href="{% url 'LichThiDau' %}">Lịch Thi Đấu</a></li>
+                            <li><a class="dropdown-item" href="{% url 'GhiNhanKetQua' %}">Ghi Nhận Kết Quả</a></li>
+                            <li><a class="dropdown-item" href="{% url 'BangXepHang' %}">Bảng Xếp Hạng</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'ThayDoiQuyDinh' %}">Thay Đổi Quy Định</a></li>
+                        </ul>
+                    </li>
+                    <!-- About us tag -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="https://www.facebook.com/chien.vuminh.75/">
+                            Liên Hệ
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin">Admin</a>
+                    </li>
+                </ul>
             </div>
-          </div>
-        </nav>
+        </div>
+    </nav>
 
-
-
-        <!-- Main Body -->
-        <img src="{% static 'app/images/rule_background.png' %}" class="d-block w-100" alt="Hinh 2" width="auto" height="640">
-        <div class="carousel-caption d-none d-md-block">
-          <center>
-          <div style="background-color: white; width: 500px; height: auto;"> 
-            <div class="row" style = "width = 100%">  
-
-              <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-                  <br>
-                  <h1 class="lg:text-3xl text-xl font-semibold  mb-6"> THAY ĐỔI QUY ĐỊNH </h1>
-                  <br>
-  
-                  <form action="" method="POST">
-                      {% csrf_token %}
-                      <div>
-                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="tuoi">THAY ĐỔI TUỔI</button>
-                      </div>
-                      <br>
-                      <div>
-                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="soluong">THAY ĐỔI SỐ LƯỢNG CẦU THỦ</button>
-                      </div>
-                      <br>
-                      <div>
-                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="diemso">THAY ĐỔI ĐIỂM SỐ</button>
-                      </div>
-                      <br>
-                      <div>
-                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="xephang">THAY ĐỔI THỨ TỰ ƯU TIÊN XẾP HẠNG</button>
-                      </div>
-                      <br>
-                      <div>
-                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="ngoaiquoc">THAY ĐỔI SỐ LƯỢNG CẦU THỦ NGOẠI QUỐC</button>
-                      </div>
-                      <br>
-                      <div>
-                          <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="luu">LƯU THAY ĐỔI</button>
-                      </div>
+    <!-- Main Body -->
+    <img src="{% static 'app/images/rule_background.png' %}" class="d-block w-100" alt="Hinh 2" width="auto" height="640">
+    <div class="carousel-caption d-none d-md-block">
+        <center>
+        <div style="background-color: white; width: 500px; height: auto;">
+            <div class="row" style="width: 100%">
+                <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                    <br>
+                    <h1 class="lg:text-3xl text-xl font-semibold mb-6"> THAY ĐỔI QUY ĐỊNH </h1>
+                    <br>
+                    <div>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalTuoi">THAY ĐỔI TUỔI</button>
+                    </div>
+                    <br>
+                    <div>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalSoluong">THAY ĐỔI SỐ LƯỢNG CẦU THỦ</button>
+                    </div>
+                    <br>
+                    <div>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalNgoaiquoc">THAY ĐỔI SỐ LƯỢNG CẦU THỦ NGOẠI QUỐC</button>
+                    </div>
+                    <br>
+                    <div>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalThoidiemghiban">THAY ĐỔI THỜI ĐIỂM GHI BÀN TỐI ĐA</button>
+                    </div>
+                    <br>
+                    <div>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalSoluongbanthang">THAY ĐỔI SỐ LƯỢNG LOẠI BÀN THẮNG</button>
+                    </div>
+                    <br>
+                    <div>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalDiemSo">THAY ĐỔI ĐIỂM SỐ</button>
+                    </div>
+                    <br>
+                    <div>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalUuTien">THAY ĐỔI THỨ TỰ ƯU TIÊN</button>
+                    </div>
+                    <br>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                    <div>
+                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="luu">LƯU THAY ĐỔI</button>
+                    </div>
+                    <div>
+                        <style>
+                            .thong-bao-thanh-cong {
+                                color: green;
+                            }
+                            .thong-bao-loi {
+                                color: red;
+                            }
+                        </style>
+                        {% for message in messages %}
+                            <h5 class="{% if message.tags == 'success' %}thong-bao-thanh-cong{% else %}thong-bao-loi{% endif %}">
+                                {{ message }}
+                            </h5>
+                        {% endfor %}
+                    </div>
+            
                   </form>
-                  <br><br>
-  
-                  <div>
-                    {% if error %}
-                  <div style="color: red;">
-                    <strong>{{ error }}</strong>
-                  </div>
-                  {% endif %}
-                      <!-- thay doi tuoi -->
-                      {% if tuoi %}
-                          {% for message in messages %}
-                              <h5>{{message}}</h5>
-                          {% endfor %}
-                          <form  action="" method = "POST">
-                              {% csrf_token %}
-                              <div class="col-lg-6">
-                                  <div class="box-element" id="form-wrapper">
-                                        <div class="form-field">
-                                            <input required class="form-control" type="number" name="tuoitoithieu" placeholder="Tuổi tối thiều">
-                                        </div>
-            
-                                        <div class="form-field">
-                                            <input required class="form-control" type="number" name="tuoitoida" placeholder="Tuổi tối đa">
-                                        </div>
-            
-                    
-                                        <hr>
-                                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoituoi">THAY ĐỔI</button>
-                                  </div>   
-                              </div>
-                            </form>
-                      {% endif %}
-  
-  
-                      <!-- thay doi so luong -->
-                      {% if soluong %}
-                          {% for message in messages %}
-                              <h5>{{message}}</h5>
-                          {% endfor %}
-                          <form  action="" method = "POST">
-                              {% csrf_token %}
-                              <div class="col-lg-6">
-                                  <div class="box-element" id="form-wrapper">
-                                        <div class="form-field">
-                                            <input required class="form-control" type="number" name="sltoithieu" placeholder="Số cầu thủ tối thiều">
-                                        </div>
-            
-                                        <div class="form-field">
-                                            <input required class="form-control" type="number" name="sltoida" placeholder="Số cầu thủ tối đa">
-                                        </div>
-            
-                    
-                                        <hr>
-                                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoisl">THAY ĐỔI</button>
-                                  </div>   
-                              </div>
-                            </form>
-                      {% endif %}
-  
-  
-                      <!-- thay doi so luong ngoai quoc -->
-                      {% if ngoaiquoc %}
-                          {% for message in messages %}
-                              <h5>{{message}}</h5>
-                          {% endfor %}
-                          <form  action="" method = "POST">
-                              {% csrf_token %}
-                              <div class="col-lg-6">
-                                  <div class="box-element" id="form-wrapper">
-                                        <div class="form-field">
-                                            <input required class="form-control" type="number" name="ngoaiquoc" placeholder="Số cầu thủ tối đa">
-                                        </div>
-                    
-                                        <hr>
-                                        <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoingoaiquoc">THAY ĐỔI</button>
-                                  </div>   
-                              </div>
-                            </form>
-                      {% endif %}
-
-                      <!-- thay doi diem so -->
-                      {% if diemso %}
-                      {% for message in messages %}
-                          <h5>{{message}}</h5>
-                      {% endfor %}
-                      <form action="" method="POST">
-                          {% csrf_token %}
-                          <div class="col-lg-6">
-                              <div class="box-element" id="form-wrapper">
-                                  <div class="form-field">
-                                      <input required class="form-control" type="number" name="diem_thang" placeholder="Điểm số cho 1 trận thắng">
-                                  </div>
-
-                                  <div class="form-field">
-                                      <input required class="form-control" type="number" name="diem_hoa" placeholder="Điểm số cho 1 trận hòa">
-                                  </div>
-
-                                  <div class="form-field">
-                                      <input required class="form-control" type="number" name="diem_thua" placeholder="Điểm số cho 1 trận thua">
-                                  </div>
-
-                                  <hr>
-                                  <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoidiemso">THAY ĐỔI</button>
-                              </div>
-                          </div>
-                      </form>
-                      {% endif %}
-
-                      <!-- thay doi thu tu uu tien -->
-                      {% if xephang %}
-                      <form action="" method="POST">
-                          {% csrf_token %}
-                          <div class="col-lg-6">
-                              <div class="box-element" id="form-wrapper">
-                                  <input type="hidden" name="QuyDinh" value="thaydoixh">
-                                  
-                                  <div class="form-field">
-                                      <label for="xep_hang">Ưu tiên xếp hạng:</label>
-                                      <select id="xep_hang" name="xep_hang" class="form-control" required>
-                                          <option value="ban_thang_sotran_banthua">Bàn thắng > Số trận > Bàn thua</option>
-                                          <option value="ban_thua_banthang_sotran">Bàn thua > Bàn thắng > Số trận</option>
-                                          <option value="sotran_banthang_banthua">Số trận > Bàn thắng > Bàn thua</option>
-                                          <option value="macdinh">Mặc Định</option>
-                                      </select>
-                                  </div>
-                                  
-                                  <hr>
-                                  
-                                  <button class="btn btn-outline-success" type="submit">Lưu</button>
-                              </div>
-                          </div>
-                      </form>
-                      {% endif %}
-
-                      {% if success %}
-                      <div class="alert alert-success">
-                        <strong>{{ success }}</strong>
-                      </div>
-                    {% endif %}
-                  </div>
                   
-                  
-  
-                  
-          
-                  </div>
-          
-  
-  
-              </div>
-  
-          </center>
+                </div>
+            </div>
+        </center>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Modal: Thay Đổi Tuổi -->
+    <div class="modal fade" id="modalTuoi" tabindex="-1" aria-labelledby="modalTuoiLabel" aria-hidden="true"  data-bs-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTuoiLabel">Thay Đổi Tuổi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input required class="form-control" type="number" name="tuoitoithieu" placeholder="Tuổi tối thiểu">
+                        </div>
+                        <div class="form-group">
+                            <input required class="form-control" type="number" name="tuoitoida" placeholder="Tuổi tối đa">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoituoi">THAY ĐỔI</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ĐÓNG</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Thay Đổi Số Lượng Cầu Thủ -->
+    <div class="modal fade" id="modalSoluong" tabindex="-1" aria-labelledby="modalSoluongLabel" aria-hidden="true"  data-bs-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSoluongLabel">Thay Đổi Số Lượng Cầu Thủ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input required class="form-control" type="number" name="sltoithieu" placeholder="Số cầu thủ tối thiểu">
+                        </div>
+                        <div class="form-group">
+                            <input required class="form-control" type="number" name="sltoida" placeholder="Số cầu thủ tối đa">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoisl">THAY ĐỔI</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ĐÓNG</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Thay Đổi Số Lượng Cầu Thủ Ngoại Quốc -->
+    <div class="modal fade" id="modalNgoaiquoc" tabindex="-1" aria-labelledby="modalNgoaiquocLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNgoaiquocLabel">Thay Đổi Số Lượng Cầu Thủ Ngoại Quốc</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input required class="form-control" type="number" name="ngoaiquoc" placeholder="Số cầu thủ tối đa">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoingoaiquoc">THAY ĐỔI</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ĐÓNG</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Thay Đổi Thời Điểm Ghi Bàn Tối Đa -->
+    <div class="modal fade" id="modalThoidiemghiban" tabindex="-1" aria-labelledby="modalThoidiemghibanLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalThoidiemghibanLabel">Thay Đổi Thời Điểm Ghi Bàn Tối Đa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input required class="form-control" type="text" name="thoidiemghiban" placeholder="Thời điểm ghi bàn tối đa">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoithoidiemghiban">THAY ĐỔI</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ĐÓNG</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Modal: Thay Đổi Số Lượng Loại Bàn Thắng -->
+<div class="modal fade" id="modalSoluongbanthang" tabindex="-1" aria-labelledby="modalSoluongbanthangLabel" aria-hidden="true" data-bs-backdrop="false">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="modalSoluongbanthangLabel">Thay Đổi Số Lượng Loại Bàn Thắng</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-        
+          <div class="modal-body">
+              <p class="text-muted">Cách nhau bởi dấu phẩy</p>
+              <form action="" method="POST">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <textarea id="loaibanthang" class="form-control" name="loaibanthang" rows="5" placeholder="Nhập các loại bàn thắng, cách nhau bởi dấu phẩy" required></textarea>
+                </div>
+                  <div class="modal-footer">
+                      <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoisoluongbanthang">THAY ĐỔI</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ĐÓNG</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Thay đổi điểm số -->
+<div class="modal fade" id="modalDiemSo" tabindex="-1" aria-labelledby="modalDiemSoLabel" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDiemSoLabel">Thay Đổi Điểm Số</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="col-lg-12">
+              <div class="box-element" id="form-wrapper">
+                <div class="form-field">
+                  <input required class="form-control" type="number" name="diem_thang" placeholder="Điểm số cho 1 trận thắng">
+                </div>
+                <div class="form-field">
+                  <input required class="form-control" type="number" name="diem_hoa" placeholder="Điểm số cho 1 trận hòa">
+                </div>
+                <div class="form-field">
+                  <input required class="form-control" type="number" name="diem_thua" placeholder="Điểm số cho 1 trận thua">
+                </div>
+                <hr>
+                <div class="modal-footer">
+                  <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoidiemso">THAY ĐỔI</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ĐÓNG</button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
-        
-    
+      </div>
+    </div>
+  </div>
+  
+  <!-- Thay đổi thứ tự ưu tiên -->
+  <div class="modal fade" id="modalUuTien" tabindex="-1" aria-labelledby="modalUuTienLabel" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalUuTienLabel">Thay Đổi Thứ Tự Ưu Tiên</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="col-lg-12">
+              <div class="box-element" id="form-wrapper">
+                <input type="hidden" name="QuyDinh" value="thaydoixh">
+                <div class="form-field" style="width: 100%; max-width: 400px;">
+                    <label for="xep_hang">Ưu tiên xếp hạng:</label>
+                    <select id="xep_hang" name="xep_hang" class="form-control" required style="width: 100%; white-space: normal; height: auto; padding: 5px;">
+                      <option value="ban_thang_sotran_banthua">Bàn thắng > Số trận > Bàn thua</option>
+                      <option value="ban_thua_banthang_sotran">Bàn thua > Bàn thắng > Số trận</option>
+                      <option value="sotran_banthang_banthua">Số trận > Bàn thắng > Bàn thua</option>
+                      <option value="macdinh">Mặc Định</option>
+                    </select>
+                  </div>
+                <hr>
+                <div class="modal-footer">
+                  <button class="btn btn-outline-success" type="submit">Lưu</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ĐÓNG</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-        <!-- Footer -->
-        <Footer class="container--fluid text-left fixed-bottom p-2 mt-5"> <strong>
-          Copyright ©  </strong>
-        </footer>
+<script>
+    let loaiBanThangGlobal = [];
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/lay-loai-ban-thang/')
+            .then(response => response.json())
+            .then(data => {
+                loaiBanThangGlobal = data; // Store the goal types globally
+                document.getElementById('loaibanthang').value = loaiBanThangGlobal.join(', ');
+            });
+    });
+</script>
+    <!-- Footer -->
+    <footer class="container--fluid text-left fixed-bottom p-2 mt-5"> <strong>
+      Copyright ©  </strong>
+    </footer>
 
-
-    </body>
+</body>
 </html>

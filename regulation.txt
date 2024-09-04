@@ -1,8 +1,8 @@
 24 35
 11 12
 0 3
-3 2 1
-ban_thua_banthang_sotran
+5 2 1
+sotran_banthang_banthua
 96
 Thường
 Penalty
