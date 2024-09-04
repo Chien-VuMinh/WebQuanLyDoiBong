@@ -521,7 +521,7 @@ def BangXepHang(request):
     elif xep_hang == 'sotran_banthang_banthua':
         bang_xep_hang_list.sort(key=lambda x: (-x['diem'],-x['tran'], -x['ban_thang'], x['ban_thua']))
     elif xep_hang == 'macdinh':  # Mặc định là xếp theo điểm số
-        bang_xep_hang_list.sort(key=lambda x: (-x['diem'], -x['ban_thang'], x['ban_thua'],-x['tran']))
+        bang_xep_hang_list.sort(key=lambda x: (-x['diem'], -x['tran'],-x['ban_thang'], x['ban_thua']))
 
     top_scorers = CauThu.objects.order_by('-so_ban_thang')[:5]
 
