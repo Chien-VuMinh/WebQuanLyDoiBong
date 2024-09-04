@@ -275,8 +275,6 @@
         <div class="modal-body">
           <form action="" method="POST">
             {% csrf_token %}
-            <div class="col-lg-12">
-              <div class="box-element" id="form-wrapper">
                 <div class="form-field">
                   <input required class="form-control" type="number" name="diem_thang" placeholder="Điểm số cho 1 trận thắng">
                 </div>
@@ -290,8 +288,7 @@
                 <div class="modal-footer">
                   <button class="btn btn-outline-success" name="QuyDinh" type="submit" value="thaydoidiemso">THAY ĐỔI</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ĐÓNG</button>
-                </div>
-              </div>
+              
             </div>
           </form>
         </div>
@@ -310,8 +307,6 @@
         <div class="modal-body">
           <form action="" method="POST">
             {% csrf_token %}
-            <div class="col-lg-12">
-              <div class="box-element" id="form-wrapper">
                 <input type="hidden" name="QuyDinh" value="thaydoixh">
                 <div class="form-field" style="width: 100%; max-width: 400px;">
                     <label for="xep_hang">Ưu tiên xếp hạng:</label>
@@ -327,15 +322,12 @@
                   <button class="btn btn-outline-success" type="submit">Lưu</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ĐÓNG</button>
                 </div>
-              </div>
-            </div>
           </form>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 
 <script>
     let loaiBanThangGlobal = [];
