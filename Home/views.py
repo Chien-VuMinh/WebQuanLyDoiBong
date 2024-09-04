@@ -300,10 +300,7 @@ def ThemTranDau(request):
         doi_nha_ma = request.POST.get('doi_nha')
         doi_khach_ma = request.POST['doi_khach']
         ngay_thi_dau = request.POST['ngay_thi_dau']
-        gio_thi_dau = request.POST['gio_thi_dau']
-
-        # Debugging information
-        print(f"doi_nha_ma: {doi_nha_ma}")  
+        gio_thi_dau = request.POST['gio_thi_dau'] 
 
         try:
             doi_nha = Doi.objects.get(ma_doi_bong=doi_nha_ma)
@@ -323,9 +320,6 @@ def ThemTranDau(request):
             messages.error(request, 'Trận đấu giữa hai đội này đã được tạo trong mùa giải này.')
             return redirect('ThemTranDau')
 
-        current_time = datetime.now()
-        current_time = timezone.make_aware(current_time, timezone.get_current_timezone())
-
         # 3. Check if the match date is within the season's start and end dates
         ngay_thi_dau = datetime.strptime(ngay_thi_dau, '%Y-%m-%d').date()
         gio_thi_dau = datetime.strptime(gio_thi_dau, '%H:%M').time()
@@ -336,11 +330,6 @@ def ThemTranDau(request):
 
         if match_datetime.date() < current_season.ngay_bat_dau or match_datetime.date() > current_season.ngay_ket_thuc:
             messages.error(request, 'Ngày thi đấu phải nằm trong khoảng thời gian của mùa giải.')
-            return redirect('ThemTranDau')
-
-        # 4. Check if the match date is in the future
-        if match_datetime <= current_time:
-            messages.error(request, 'Ngày giờ thi đấu phải sau thời gian hiện tại.')
             return redirect('ThemTranDau')
 
         # Assuming valid data
